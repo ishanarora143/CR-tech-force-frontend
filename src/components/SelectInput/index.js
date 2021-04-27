@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   selectEmpty: {
+    marginTop: '4px',
+    marginBottom: '-4px',
     '& fieldset': {
       borderWidth: 0,
     }

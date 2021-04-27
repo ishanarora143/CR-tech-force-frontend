@@ -8,7 +8,7 @@ import './Header.scss';
 const Header = () => {
   const history = useHistory();
   const showLogo = history.location.pathname !== '/';
-  const showSuperheroButton = history.location.pathname !== '/addResources';
+  const showSuperheroButton = history.location.pathname !== '/submit-a-lead';
 
   return (
     <header
@@ -21,7 +21,7 @@ const Header = () => {
         iconSrc={superheroImg}
         primaryText="Be a Superhero!"
         secondaryText="Click here to submit info"
-        onClick={() => history.push('/addResources')}
+        onClick={() => history.push('/submit-a-lead')}
       />}
 
 

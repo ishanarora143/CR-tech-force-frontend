@@ -10,9 +10,21 @@ import {
 import { Autocomplete } from "@material-ui/lab";
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import { useMutation } from "@apollo/client";
+import { ApolloClient, useMutation, ApolloProvider, createHttpLink } from "@apollo/client";
+import ApolloLinkTimeout from 'apollo-link-timeout';
 import statesCitiesData from './../../utils/state-city-map';
 import resourceData from './../../utils/resources';
+
+
+const timeoutLink = new ApolloLinkTimeout(15000);
+const httpLink = createHttpLink({
+  uri: 'https://vz3uy4iya2.execute-api.ap-south-1.amazonaws.com/dev/graphql'
+})
+
+const timeoutHttpLink = timeoutLink.concat(httpLink);
+const apolloClient = new ApolloClient({
+  link: timeoutHttpLink
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -136,6 +148,7 @@ const AddResources = (props) => {
       setDialogMessage("Error uploading resource, Please try again later.");
       setDialogOpen(true);
     },
+    client: apolloClient,
   });
 
   const checkDataAndSubmit = () => {
@@ -290,7 +303,7 @@ const AddResources = (props) => {
             }
             onChange={(event) => setAvailability(event.target.value)}
           >
-            <MenuItem value={"Availabel"} key={"Available"}>
+            <MenuItem value={"Available"} key={"Available"}>
               {"Available"}
             </MenuItem>
 
