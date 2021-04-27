@@ -32,7 +32,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set \"REACT_APP_GA_MEASUREMENT_ID=G-S8CRXJHL1C\" && react-scripts start ",
+    "build:beta": "set \"REACT_APP_GA_MEASUREMENT_ID=G-S8CRXJHL1C\" && react-scripts build ",
+    "build:dev": "set \"REACT_APP_GA_MEASUREMENT_ID=G-TE3WTJXZWW\" && react-scripts build ",
+    "build:prod": "set \"REACT_APP_GA_MEASUREMENT_ID=G-5CPZ7LQ011\" && react-scripts build ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
