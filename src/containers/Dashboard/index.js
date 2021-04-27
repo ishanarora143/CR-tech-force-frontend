@@ -86,10 +86,11 @@ const Dashboard = () => {
       <section className="Dashboard-top d-flex flex-direction-col align-items-center w-100">
         <Logo isInline={false} />
         <div className="Dashboard-top__teamLabel">
-          We’re a team of volunteers, working 24x7 to find you verified leads
-          related to all Covid needs.
+          We’re a team of volunteers, working 24x7 to find you verified leads related to all Covid needs. Follow us on Twitter for live updates
         </div>
-        <HelpCount count={823} />
+        <div className="mb-3">
+          <a href="https://twitter.com/COVResourcesIn?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-size="large" data-show-count="false">Follow @COVResourcesIn</a>
+        </div>
         <SearchBar />
         <PopularCities />
       </section>
