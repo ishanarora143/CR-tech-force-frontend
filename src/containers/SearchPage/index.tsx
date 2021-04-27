@@ -4,8 +4,10 @@ import gql from 'graphql-tag';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { useHistory } from 'react-router';
 import SearchBar from '../../components/SearchBar';
 import SearchResultCard from '../../components/SearchResultsCard/SearchResultCard';
+import ROUTES from '../../constants/routes';
 import { Context as SearchContext } from './../../context/SearchContext';
 
 function SearchPage() {
@@ -15,21 +17,32 @@ function SearchPage() {
   const [redirectToTwitter, setRedirectToTwitter] = useState(false)
   const [timeoutTime, setTimeoutTime] = useState(5)
   const timeoutRef = useRef(0);
+  const history = useHistory();
 
   if (timeoutTime === 0) {
     window.open('https://twitter.com/COVResourcesIn', '_self')
   }
 
   const getFilter = () => {
-    let filter = {
-      ...(state?.searchInputs?.state && { state: `"${state?.searchInputs?.state}"` }),
-      ...(state?.searchInputs?.city && { city: `"${state?.searchInputs?.city}"` }),
-      ...(state?.searchInputs?.requirement && { resourceType: `"${state?.searchInputs?.requirement}"` }),
-    };
-    
+    let filter = ``;
+    if (state?.searchInputs?.state) {
+      filter += `state:"${state?.searchInputs?.state}", `;
+    }
+
+    if (state?.searchInputs?.city) {
+      filter += `city:"${state?.searchInputs?.city}", `;
+    }
+
+    if (state?.searchInputs?.requirement) {
+      filter += `resourceType:"${state?.searchInputs?.requirement}", `;
+    }
+
+    if (!filter) {
+      filter += `resourceType:"Oxygen"`;
+    }
+
     return filter
   }
-
 
   const [executeSearch, { loading, called }] = useLazyQuery(GET_SEARCH(getFilter()), {
     fetchPolicy: 'cache-and-network',
@@ -57,6 +70,13 @@ function SearchPage() {
     window.clearInterval(timeoutRef.current);
     setTimeoutTime(5);
   }
+
+  useEffect(() => {
+    if (history.location.search.includes('executeSearch')) {
+      history.push(ROUTES.SEARCH);
+      executeSearch();
+    }
+  }, [executeSearch, history])
 
   useEffect(() => {
     if (state?.searchInputs?.state && state?.searchInputs?.city && state?.searchInputs?.requirement) {
@@ -123,7 +143,7 @@ function SearchPage() {
 const GET_SEARCH = (filter: any) => gql`
       query {
           workspace {
-            tickets(city: ${filter?.city},state: ${filter?.state}, resourceType: ${filter?.resourceType} ) {
+            tickets(${filter}) {
               edges {
                 node {
                   ticketId
