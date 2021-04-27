@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <header
-      className={`Header align-items-center d-flex justify-content-between ${!!showLogo ? '' : 'justify-content-end'
+      className={`Header d-flex justify-content-between ${!!showLogo ? '' : 'justify-content-end'
         } ${!!showLogo ? '' : 'isHeader'}`}
     >
       {!!showLogo && <Logo onClick={() => history.push('/')} />}
@@ -23,8 +23,6 @@ const Header = () => {
         secondaryText="Click here to submit info"
         onClick={() => history.push('/submit-a-lead')}
       />}
-
-
     </header>
   );
 };
