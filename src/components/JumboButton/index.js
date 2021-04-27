@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const JumboButton = ({ altText, iconSrc, primaryText, secondaryText, onClick = () => { }, name }) => {
+const JumboButton = ({ altText, iconSrc, primaryText, secondaryText, onClick, name }) => {
   const classes = useStyles();
   const btnImg = <img alt={altText} src={iconSrc} />;
 
