@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const JumboButton = ({ altText, iconSrc, primaryText, secondaryText, onClick = () => { }, name }) => {
+const JumboButton = ({ altText, iconSrc, primaryText, secondaryText, onClick, name }) => {
   const classes = useStyles();
   const btnImg = <img alt={altText} src={iconSrc} />;
 
@@ -36,7 +36,7 @@ const JumboButton = ({ altText, iconSrc, primaryText, secondaryText, onClick = (
       size="large"
       className={clsx(classes.button, 'JumboButton linear-gradient')}
       startIcon={btnImg}
-      onClick={onClick}
+      onClick={handleOnClick}
     >
       <div className="text-align-left">
         <div className="JumboButton-primaryText">{primaryText}</div>
