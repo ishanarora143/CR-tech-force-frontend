@@ -103,6 +103,7 @@ const SearchResultCard = (props) => {
     thumbsDownCount,
     theme,
     ticketId,
+    resourceType,
   } = props;
 
   if (thumbsUpcount && !isNaN(thumbsUpcount)) {
@@ -169,7 +170,7 @@ const SearchResultCard = (props) => {
     },
   });
 
-  const copyInfo = () => {
+  const getInfoToCopy = () => {
     const lastVerifiedText = `Last Verified: ${getVerifiedText(lastVerified)}`;
     const phoneNumberText = `Phone Number - ${phone}`;
     const addressText = `Address - ${location}`;
@@ -180,7 +181,17 @@ const SearchResultCard = (props) => {
     }
         ${phone ? phoneNumberText : ""}
         ${location ? addressText : ""}
-        ${details ? detailsText : ""}`;
+        ${details ? detailsText : ""}
+        
+        To find more such covid related information leads, visit: ${
+          window.location.origin
+        }`;
+
+    return copyText;
+  };
+
+  const copyInfo = () => {
+    const copyText = getInfoToCopy();
 
     navigator.clipboard.writeText(copyText);
     setDialogMessage("Information Copied to Clipboard");
@@ -188,12 +199,17 @@ const SearchResultCard = (props) => {
   };
 
   const copyLink = () => {
-    // @TODO generate link to this page
-    navigator.clipboard.writeText(
-      "https://covid-resources-india-cef91.web.app/"
-    );
-    setDialogMessage("Link Copied to Clipboard");
-    setDialogOpen(true);
+    const copyText = getInfoToCopy();
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `${resourceType} Lead`,
+          text: copyText,
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error sharing", error));
+    }
   };
 
   const getVerifiedText = (lastVerified) => {
@@ -300,14 +316,16 @@ const SearchResultCard = (props) => {
         </div>
       </Card>
 
-      <Button
-        onClick={() => copyLink()}
-        color="primary"
-        variant="outlined"
-        style={{ marginTop: theme.spacing(3) }}
-      >
-        Share
-      </Button>
+      {navigator.share && (
+        <Button
+          onClick={() => copyLink()}
+          color="primary"
+          variant="outlined"
+          style={{ marginTop: theme.spacing(3) }}
+        >
+          Share
+        </Button>
+      )}
 
       <Snackbar
         anchorOrigin={{

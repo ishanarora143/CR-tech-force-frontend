@@ -129,6 +129,7 @@ function SearchPage() {
                 details={edgeData.node.otherInfo}
                 thumbsUpcount={edgeData.node.upvoteCount}
                 ticketId={edgeData.node.ticketId}
+                resourceType={edgeData.node.resourceType}
               />
             ))}
           </div></>}
@@ -152,6 +153,7 @@ const GET_SEARCH = (filter: any) => gql`
                   availableUnits
                   upvoteCount
                   resourceName
+                  resourceType
                   updatedAt
                   address
                   otherInfo
