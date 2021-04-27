@@ -10,7 +10,7 @@ import {
 import { Autocomplete } from "@material-ui/lab";
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import { ApolloClient, useMutation, ApolloProvider, createHttpLink } from "@apollo/client";
+import { ApolloClient, useMutation, InMemoryCache, createHttpLink } from "@apollo/client";
 import ApolloLinkTimeout from 'apollo-link-timeout';
 import statesCitiesData from './../../utils/state-city-map';
 import resourceData from './../../utils/resources';
@@ -23,7 +23,8 @@ const httpLink = createHttpLink({
 
 const timeoutHttpLink = timeoutLink.concat(httpLink);
 const apolloClient = new ApolloClient({
-  link: timeoutHttpLink
+  link: timeoutHttpLink,
+  cache: new InMemoryCache()
 });
 
 const useStyles = makeStyles((theme) => ({
