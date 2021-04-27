@@ -21,7 +21,6 @@ const SearchBar = (props) => {
   const [selectedCity, setSelectedCity] = useState(state.searchInputs ? state.searchInputs.city : '');
   const [selectedRequirement, setSelectedRequirement] = useState(state.searchInputs ? state.searchInputs.requirement : '');
   const [cities, setCities] = useState([]);
-  const [firstClick, setFirstClick] = useState(false);
 
   useEffect(() => {
     if (state && state.searchInputs) {
@@ -75,30 +74,23 @@ const SearchBar = (props) => {
     setSelectedRequirement(selectedRequirement);
   };
 
-  const isValidSearchQuery = (searchQuery) => {
-    return searchQuery.state && searchQuery.city && searchQuery.requirement
-  }
-
   const handleSubmit = () => {
     const {
       location: { pathname },
     } = history;
-    setFirstClick(true);
     const searchQuery = {
       state: selectedState,
       city: selectedCity,
       requirement: selectedRequirement,
     };
-    if (!isValidSearchQuery(searchQuery)) {
-      return;
-    }
     searchInputs(searchQuery);
 
-    if (props.onSubmit && isValidSearchQuery(searchQuery)) {
+    if (props.onSubmit
+    ) {
       props.onSubmit();
     }
 
-    pathname === '/' && history.push(ROUTES.SEARCH);
+    pathname === '/' && history.push(`${ROUTES.SEARCH}?executeSearch=true`);
   };
 
   return (
@@ -109,7 +101,6 @@ const SearchBar = (props) => {
         value={selectedState || ''}
         options={states}
         onChange={handleStateChange}
-        firstClick={firstClick}
       />
       <SelectInput
         label="Select City / Region"
@@ -117,7 +108,6 @@ const SearchBar = (props) => {
         value={selectedCity || ''}
         options={cities}
         onChange={handleCityChange}
-        firstClick={firstClick}
       />
       <SelectInput
         label="What are you're looking for"
@@ -125,13 +115,13 @@ const SearchBar = (props) => {
         value={selectedRequirement || ''}
         options={requirements}
         onChange={handleRequirementChange}
-        firstClick={firstClick}
       />
       <Button
         label="Find Leads"
         icon={<SearchIcon />}
         name="Search leads"
         onClick={() => handleSubmit()}
+        disabled={!(selectedRequirement || selectedCity || selectedState)}
       />
     </div>
   );

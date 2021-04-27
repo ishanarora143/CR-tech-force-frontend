@@ -1,12 +1,9 @@
 import React, { useContext } from 'react';
 import { withRouter } from 'react-router';
-import { requirements } from '../../constants';
 import Button from '../Button';
 import ROUTES from './../../constants/routes';
 import { Context as SearchContext } from './../../context/SearchContext';
 import './PopularCities.scss';
-
-
 
 const popularStateCity = [
   {
@@ -58,10 +55,9 @@ const PopularCities = (props) => {
     const searchQuery = {
       state,
       city,
-      requirement: requirements[1],
     };
     searchInputs(searchQuery);
-    history.push(ROUTES.SEARCH);
+    history.push(`${ROUTES.SEARCH}?executeSearch=true`);
   };
 
   return (

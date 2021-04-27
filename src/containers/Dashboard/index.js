@@ -66,7 +66,7 @@ const Dashboard = () => {
       requirement
     }
     searchInputs(searchQuery);
-    history.push(ROUTES.SEARCH)
+    history.push(`${ROUTES.SEARCH}?executeSearch=true`)
   }
 
   const categories = categoryData.map(

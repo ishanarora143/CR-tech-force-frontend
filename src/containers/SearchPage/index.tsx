@@ -1,35 +1,51 @@
 import { useLazyQuery } from '@apollo/client';
-import { Button, Dialog, DialogActions, DialogContent, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import gql from 'graphql-tag';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { useHistory } from 'react-router';
 import SearchBar from '../../components/SearchBar';
 import SearchResultCard from '../../components/SearchResultsCard/SearchResultCard';
+import ROUTES from '../../constants/routes';
 import { Context as SearchContext } from './../../context/SearchContext';
+
+const TIMEOUT_DEFAULT_TIME = 15;
+const TWITTER_SOCIAL_HANDLE = 'https://twitter.com/COVResourcesIn'
 
 function SearchPage() {
   const { state } = useContext(SearchContext);
 
   const [currentData, setCurrentData] = useState([]);
   const [redirectToTwitter, setRedirectToTwitter] = useState(false)
-  const [timeoutTime, setTimeoutTime] = useState(5)
+  const [timeoutTime, setTimeoutTime] = useState(TIMEOUT_DEFAULT_TIME)
   const timeoutRef = useRef(0);
+  const history = useHistory();
 
   if (timeoutTime === 0) {
-    window.open('https://twitter.com/COVResourcesIn', '_self')
+    window.open(TWITTER_SOCIAL_HANDLE, '_self')
   }
 
   const getFilter = () => {
-    let filter = {
-      ...(state?.searchInputs?.state && { state: `"${state?.searchInputs?.state}"` }),
-      ...(state?.searchInputs?.city && { city: `"${state?.searchInputs?.city}"` }),
-      ...(state?.searchInputs?.requirement && { resourceType: `"${state?.searchInputs?.requirement}"` }),
-    };
-    
+    let filter = ``;
+    if (state?.searchInputs?.state) {
+      filter += `state:"${state?.searchInputs?.state}", `;
+    }
+
+    if (state?.searchInputs?.city) {
+      filter += `city:"${state?.searchInputs?.city}", `;
+    }
+
+    if (state?.searchInputs?.requirement) {
+      filter += `resourceType:"${state?.searchInputs?.requirement}", `;
+    }
+
+    if (!filter) {
+      filter += `resourceType:"Oxygen"`;
+    }
+
     return filter
   }
-
 
   const [executeSearch, { loading, called }] = useLazyQuery(GET_SEARCH(getFilter()), {
     fetchPolicy: 'cache-and-network',
@@ -55,8 +71,15 @@ function SearchPage() {
   const handleClose = () => {
     setRedirectToTwitter(false);
     window.clearInterval(timeoutRef.current);
-    setTimeoutTime(5);
+    setTimeoutTime(TIMEOUT_DEFAULT_TIME);
   }
+
+  useEffect(() => {
+    if (history.location.search.includes('executeSearch')) {
+      history.push(ROUTES.SEARCH);
+      executeSearch();
+    }
+  }, [executeSearch, history])
 
   useEffect(() => {
     if (state?.searchInputs?.state && state?.searchInputs?.city && state?.searchInputs?.requirement) {
@@ -66,23 +89,6 @@ function SearchPage() {
 
   return (
     <div>
-      <Dialog
-        open={redirectToTwitter}
-        onClose={handleClose}
-      >
-        <DialogContent>
-          <div>
-            Sorry! We don't have any active leads for your search.<br />
-            Redirecting you to our twitter handle for live updates.<br /><br />
-            Redirecting in {timeoutTime} seconds..
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
       <SearchBar onSubmit={() => {
         setCurrentData([]);
         executeSearch();
@@ -97,7 +103,17 @@ function SearchPage() {
             timeout={3000} //3 secs
           />
         </div>}
-        {!loading && currentData.length === 0 && <h3>Sorry, No data available</h3>}
+        {redirectToTwitter &&
+          <>
+            <Typography variant="h6" className="mb-4">
+              Sorry! We don't have any active leads for your search.<br />
+            Redirecting you to <a href={TWITTER_SOCIAL_HANDLE}>our twitter handle</a> for live updates in {timeoutTime} seconds..
+          </Typography>
+            <Button variant="contained" onClick={handleClose} color="primary">
+              Cancel Redirection
+        </Button>
+          </>
+        }
         {currentData.length !== 0 && <>
           <Typography color="textSecondary" className="mb-4">Showing {currentData.length} Result{currentData.length > 1 ? 's' : ''}</Typography>
           <div className="d-flex flex-wrap">
@@ -123,7 +139,7 @@ function SearchPage() {
 const GET_SEARCH = (filter: any) => gql`
       query {
           workspace {
-            tickets(city: ${filter?.city},state: ${filter?.state}, resourceType: ${filter?.resourceType} ) {
+            tickets(${filter}) {
               edges {
                 node {
                   ticketId
