@@ -4,7 +4,6 @@ import superheroImg from './../../global/assets/icons/superhero.svg';
 import JumboButton from './../JumboButton';
 import Logo from './../Logo';
 import './Header.scss';
-import {TwitterFollowButton} from 'react-twitter-embed';
 
 const Header = () => {
   const history = useHistory();
@@ -25,13 +24,6 @@ const Header = () => {
         onClick={() => history.push('/addResources')}
       />}
 
-
-      {!!showLogo ? null :<div style={{position: 'absolute', right: 0}}>
-        <TwitterFollowButton
-          options={{height: 400}}
-          screenName={'COVResourcesIn'}
-        />
-      </div>}
 
     </header>
   );
