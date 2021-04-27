@@ -9,7 +9,7 @@ import {TwitterFollowButton} from 'react-twitter-embed';
 const Header = () => {
   const history = useHistory();
   const showLogo = history.location.pathname !== '/';
-  const showSuperheroButton = history.location.pathname !== '/addResources';
+  const showSuperheroButton = history.location.pathname !== '/submit-a-lead';
 
   return (
     <header
