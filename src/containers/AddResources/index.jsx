@@ -13,7 +13,6 @@ import { ApolloClient, useMutation, InMemoryCache, createHttpLink } from "@apoll
 import ApolloLinkTimeout from 'apollo-link-timeout';
 import statesCitiesData from './../../utils/state-city-map';
 import resourceData from './../../utils/resources';
-import { useMutation } from "@apollo/client";
 import Button from "../../components/Button";
 
 
