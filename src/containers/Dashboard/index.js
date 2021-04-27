@@ -83,7 +83,7 @@ const Dashboard = () => {
   );
   return (
     <div className="Dashboard d-flex flex-direction-col align-items-center">
-      <section className="Dashboard-top d-flex flex-direction-col align-items-center w-100">
+      <section className="Dashboard-top d-flex flex-direction-col align-items-center">
         <Logo isInline={false} />
         <div className="Dashboard-top__teamLabel">
           We’re a team of volunteers, working 24x7 to find you verified leads
