@@ -1,6 +1,8 @@
-import { TextField } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
-import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
 import './SelectInput.scss';
 
@@ -10,9 +12,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   selectEmpty: {
-    '& fieldset': {
-      borderWidth: 0,
-    }
+    marginTop: theme.spacing(2),
   },
   select: {
     '&:focus': {
@@ -24,28 +24,40 @@ const useStyles = makeStyles((theme) => ({
 const SelectInput = ({ label, placeholder, options, value, onChange, firstClick, errorMsg }) => {
   const classes = useStyles();
 
+  const optionsData = options.map((option, index) => (
+    <MenuItem key={index} value={option}>
+      {option}
+    </MenuItem>
+  ));
+
   return (
-    <div className="SelectInput d-flex" style={{flex: 1, flexBasis: '25%', flexShrink: 0, overflow: 'hidden'}}>
-      <Autocomplete
-          className={classes.formControl}
-          options={options}
+    <div className="SelectInput d-flex flex-grow-1">
+      <FormControl className={classes.formControl} error={firstClick && !value}>
+        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+          {label}
+        </InputLabel>
+        <Select
+          disableUnderline
+          labelId="demo-simple-select-placeholder-label-label"
+          id="demo-simple-select-placeholder-label"
           value={value}
-          getOptionLabel={(option) => option}
-          style={{ width: "100%" }}
-          onChange={(event, value) => onChange(value)}
-          renderInput={(params) => (
-            <TextField
-              className={classes.selectEmpty}
-              autoComplete="off"
-              {...params}
-              error={firstClick && !value}
-              label={label}
-              required
-              variant='outlined'
-              
-            />
-          )}
-        />
+          onChange={(event) => onChange(event.target.value)}
+          displayEmpty
+          className={classes.selectEmpty}
+          MenuProps={{
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'left',
+            },
+            getContentAnchorEl: null,
+          }}
+        >
+          <MenuItem style={{ opacity: 0.3 }} value="">
+            <span>{placeholder}</span>
+          </MenuItem>
+          {optionsData}
+        </Select>
+      </FormControl>
     </div>
   );
 };

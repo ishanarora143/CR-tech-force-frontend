@@ -4,7 +4,6 @@ import superheroImg from './../../global/assets/icons/superhero.svg';
 import JumboButton from './../JumboButton';
 import Logo from './../Logo';
 import './Header.scss';
-import {TwitterFollowButton} from 'react-twitter-embed';
 
 const Header = () => {
   const history = useHistory();
@@ -13,7 +12,7 @@ const Header = () => {
 
   return (
     <header
-      className={`Header align-items-center d-flex justify-content-between ${!!showLogo ? '' : 'justify-content-end'
+      className={`Header d-flex justify-content-between ${!!showLogo ? '' : 'justify-content-end'
         } ${!!showLogo ? '' : 'isHeader'}`}
     >
       {!!showLogo && <Logo onClick={() => history.push('/')} />}
@@ -24,15 +23,6 @@ const Header = () => {
         secondaryText="Click here to submit info"
         onClick={() => history.push('/addResources')}
       />}
-
-
-      {!!showLogo ? null :<div style={{position: 'absolute', right: 0}}>
-        <TwitterFollowButton
-          options={{height: 400}}
-          screenName={'COVResourcesIn'}
-        />
-      </div>}
-
     </header>
   );
 };
