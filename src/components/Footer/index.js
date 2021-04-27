@@ -12,7 +12,7 @@ const footerLinks = [
     id: 'leads',
     primaryText: "Have any lead?",
     secondaryText: "Click Here to Submit Info",
-    path: "/addResources",
+    path: "/submit-a-lead",
     isLink: true
   },
   {

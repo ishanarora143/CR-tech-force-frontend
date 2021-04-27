@@ -73,7 +73,7 @@ function App() {
                 <Header />
                 <div className="container">
                   <Switch>
-                    <Route exact path="/addResources" component={AddResources} />
+                    <Route exact path="/submit-a-lead" component={AddResources} />
                     <Route exact path="/home" component={Home} />
                     <Route exact path="/search" component={SearchPage} />
                     <Route exact path="/" component={Home} />

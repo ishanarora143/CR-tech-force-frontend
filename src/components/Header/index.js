@@ -22,7 +22,7 @@ const Header = () => {
         iconSrc={superheroImg}
         primaryText="Be a Superhero!"
         secondaryText="Click here to submit info"
-        onClick={() => history.push('/addResources')}
+        onClick={() => history.push('/submit-a-lead')}
       />}
 
 
