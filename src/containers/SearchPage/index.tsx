@@ -129,7 +129,10 @@ function SearchPage() {
                 details={edgeData.node.otherInfo}
                 thumbsUpcount={edgeData.node.upvoteCount}
                 ticketId={edgeData.node.ticketId}
+                state={edgeData.node.state}
+                costPerUnit={edgeData.node.costPerUnit}
                 resourceType={edgeData.node.resourceType}
+                availableUnits={edgeData.node.availableUnits}
               />
             ))}
           </div></>}

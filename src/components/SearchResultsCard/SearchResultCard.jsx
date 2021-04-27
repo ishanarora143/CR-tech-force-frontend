@@ -14,7 +14,6 @@ import ThumbsUp from "../../global/assets/icons/thumsup.svg";
 import ThumbsDown from "../../global/assets/icons/thumbsdown.svg";
 import { gql, useMutation } from "@apollo/client";
 import dayjs from "dayjs";
-import LinesEllipsis from "react-lines-ellipsis";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
@@ -104,6 +103,9 @@ const SearchResultCard = (props) => {
     theme,
     ticketId,
     resourceType,
+    state,
+    availability,
+    costPerUnit,
   } = props;
 
   if (thumbsUpcount && !isNaN(thumbsUpcount)) {
@@ -119,6 +121,8 @@ const SearchResultCard = (props) => {
 
   const [allowUpvote, setAllowUpvote] = useState(true);
   const [allowDownvote, setAllowDownvote] = useState(true);
+
+  const [expanded, setExpanded] = useState(false);
 
   const [upvoteTicket] = useMutation(UPVOTE_COUNT, {
     variables: {
@@ -250,26 +254,46 @@ const SearchResultCard = (props) => {
               COPY
             </Button>
           </div>
+          
           <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
-            Location
+            State
           </Typography>
-          <Typography variant="body1">{location}</Typography>
+          <Typography variant="body1">{state || 'Info Not Available'}</Typography>
+          
+          <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
+            Cost Per Unit
+          </Typography>
+          <Typography variant="body1">{costPerUnit || 'Info Not Available'}</Typography>
 
-          <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
-            Details
-          </Typography>
-          <Typography variant="body1">
-            <LinesEllipsis
-              text={details}
-              maxLine="2"
-              ellipsis="..."
-              trimRight
-              basedOn="letters"
-            />
-          </Typography>
+          {expanded ? (
+            <>
+              <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
+                Availability
+              </Typography>
+              <Typography variant="body1">{availability || 'Info Not Available'}</Typography>              
+
+              <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
+                Location  
+              </Typography>
+              <Typography variant="body1">{location || 'Info Not Available'}</Typography>
+
+              <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
+                Other Info
+              </Typography>
+              <Typography variant="body1">{details || 'Info Not Available'}</Typography>
+            </>
+          ) : null}
+
+          <div className='d-flex' style={{position: 'absolute', bottom: 8, right: 16}}>
+            <Typography onClick={() => setExpanded(!expanded)} style={{ color: '#3A75CD', textDecoration: 'underline', cursor: 'pointer'}} variant="body1">
+              {expanded ? 'Click for Less Details'  : 'Click for More Details'}
+            </Typography>
+          </div>
+
         </div>
 
         <div className={classes.cardFooter}>
+                    
           <Typography style={{ opacity: 0.7 }} variant="body1">
             Was this helpful?
           </Typography>
