@@ -2,21 +2,20 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import { requirements } from '../../constants';
 import ROUTES from '../../constants/routes';
-
-import HelpCount from './../../components/HelpCount';
 import JumboButton from './../../components/JumboButton';
 import Logo from './../../components/Logo';
 import PopularCities from './../../components/PopularCities';
 import SearchBar from './../../components/SearchBar';
 import { Context as SearchContext } from './../../context/SearchContext';
-
 import bedImg from './../../global/assets/icons/bed.svg';
 import hospitalImg from './../../global/assets/icons/hospital.svg';
 import medicineImg from './../../global/assets/icons/medicine.svg';
 import oxygenImg from './../../global/assets/icons/oxygen.svg';
 import tiffinImg from './../../global/assets/icons/tiffin.svg';
-
 import './Dashboard.scss';
+
+
+
 
 const categoryData = [
   {
