@@ -1,10 +1,10 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import ReactGA from 'react-ga'
-
+import React from 'react';
+import ReactGA from 'react-ga';
 import './JumboButton.scss';
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -36,7 +36,7 @@ const JumboButton = ({ altText, iconSrc, primaryText, secondaryText, onClick = (
       size="large"
       className={clsx(classes.button, 'JumboButton linear-gradient')}
       startIcon={btnImg}
-      onClick={onClick}
+      onClick={handleOnClick}
     >
       <div className="text-align-left">
         <div className="JumboButton-primaryText">{primaryText}</div>

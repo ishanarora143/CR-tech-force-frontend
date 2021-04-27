@@ -3,12 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import ReactGA from 'react-ga';
 
-
-export const initGA = () => {
-  ReactGA.initialize('G-7SCX3X2HEQ'); // put your tracking id here
-}
 
 ReactDOM.render(
   <React.StrictMode>

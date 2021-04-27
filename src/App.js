@@ -1,22 +1,19 @@
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client'
-import { ThemeProvider } from '@material-ui/styles'
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { createMuiTheme } from '@material-ui/core';
-import './global/styles/common.scss';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './containers'
-import AddResources from './containers/AddResources'
-import SearchPage from './containers/SearchPage'
-import VolunteerPage from './containers/Volunteer'
-import DataPartnerPage from './containers/DataPartner'
-import { Provider as SearchProvider } from './context/SearchContext';
-import SocialLinks from './components/SocialLinks';
-import ScrollToTop from './components/ScrollToTop';
+import { ThemeProvider } from '@material-ui/styles';
 import ApolloLinkTimeout from 'apollo-link-timeout';
-import { useEffect } from 'react';
-import { initGA } from '.';
-import TrackPageView from './components/TrackPageView';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import ScrollToTop from './components/ScrollToTop';
+import SocialLinks from './components/SocialLinks';
+import Home from './containers';
+import AddResources from './containers/AddResources';
+import DataPartnerPage from './containers/DataPartner';
+import SearchPage from './containers/SearchPage';
+import VolunteerPage from './containers/Volunteer';
+import { Provider as SearchProvider } from './context/SearchContext';
+import './global/styles/common.scss';
 
 
 const timeoutLink = new ApolloLinkTimeout(15000);
@@ -32,7 +29,6 @@ const client = new ApolloClient({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      // main: '#4452CE',
       light: '#4452CE',
       main: '#4452CE',
       dark: '#6744CC',
@@ -65,9 +61,6 @@ const theme = createMuiTheme({
 
 
 function App() {
-  useEffect(() => {
-    initGA();
-  }, [])
 
   return (
     <ApolloProvider client={client}>
@@ -76,7 +69,6 @@ function App() {
           <div className="App">
             <BrowserRouter>
               <ScrollToTop />
-              <TrackPageView />
               <ThemeProvider theme={theme}>
                 <Header />
                 <div className="container">
