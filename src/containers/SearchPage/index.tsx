@@ -90,6 +90,7 @@ function SearchPage() {
   return (
     <div>
       <SearchBar onSubmit={() => {
+        handleClose();
         setCurrentData([]);
         executeSearch();
       }} />
