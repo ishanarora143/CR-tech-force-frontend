@@ -7,7 +7,7 @@ import ReactGA from 'react-ga';
 
 
 export const initGA = () => {
-  ReactGA.initialize('G-5CPZ7LQ011'); // put your tracking id here
+  ReactGA.initialize('G-7SCX3X2HEQ'); // put your tracking id here
 }
 
 ReactDOM.render(
