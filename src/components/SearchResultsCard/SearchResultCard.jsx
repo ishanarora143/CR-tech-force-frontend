@@ -15,6 +15,7 @@ import ThumbsDown from "../../global/assets/icons/thumbsdown.svg";
 import { gql, useMutation } from "@apollo/client";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import resourceData from '../../utils/resources';
 dayjs.extend(relativeTime);
 
 const useStyles = makeStyles((theme) => ({
@@ -231,6 +232,9 @@ const SearchResultCard = (props) => {
       <Card variant="outlined" className={classes.root}>
         <div className={classes.cardHeader}>
           <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '3px'}}>
+            <div style={{height: '16px', width: '16px', borderRadius: '8px', background: '#fff', marginRight: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+              <img style={{height: '80%', width: '80%'}} src={resourceData.find(object => object.resource === resourceType).iconSrc} alt={resourceType} />
+            </div>
             <Typography style={{fontSize: '12px'}}>{resourceType}</Typography>
           </div>
 
