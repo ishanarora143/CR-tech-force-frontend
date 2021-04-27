@@ -290,7 +290,7 @@ const AddResources = (props) => {
             }
             onChange={(event) => setAvailability(event.target.value)}
           >
-            <MenuItem value={"Availabel"} key={"Available"}>
+            <MenuItem value={"Available"} key={"Available"}>
               {"Available"}
             </MenuItem>
 

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   cardHeader: {
     display: "flex",
     flexDirection: "column",
-    padding: theme.spacing(3, 2.75),
+    padding: theme.spacing(1.5, 2.75, 0.625),
     color: "#fff",
   },
   cardTitle: {
@@ -103,7 +103,9 @@ const SearchResultCard = (props) => {
     theme,
     ticketId,
     resourceType,
+    subResourceType,
     state,
+    city,
     availability,
     costPerUnit,
   } = props;
@@ -228,13 +230,29 @@ const SearchResultCard = (props) => {
     <div className={`${classes.container} ${props.className || ""}`}>
       <Card variant="outlined" className={classes.root}>
         <div className={classes.cardHeader}>
-          <div className="d-flex mb-2">
-            <Typography variant="body1">{title}</Typography>
+          <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '3px'}}>
+            <Typography style={{fontSize: '12px'}}>{resourceType}</Typography>
+          </div>
+
+          <div style={{display: 'flex', marginBottom: '4px'}}>
+            <Typography style={{fontSize: '18px'}}>{subResourceType || resourceType}</Typography>
+          </div>
+          
+          <div style={{ marginBottom: '3px'}} className="d-flex">
+            <Typography style={{opacity: 0.8}} variant="body2">Name: {title}</Typography>
             <GreenTick />
           </div>
-          <Typography style={{ opacity: 0.7 }} variant="body2">
-            Last Verified: {getVerifiedText(lastVerified)}
-          </Typography>
+
+          <div style={{opacity: 0.8, marginBottom: '2px'}} className="d-flex">
+            <Typography variant="body2">
+              {city}
+            </Typography>
+          </div>
+
+          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Typography style={{fontSize: '12px', opacity: 0.7}} variant='body2'>Last Verified: {getVerifiedText(lastVerified)}</Typography>
+          </div>
+
         </div>
 
         <div className={classes.cardContent}>
@@ -284,9 +302,9 @@ const SearchResultCard = (props) => {
             </>
           ) : null}
 
-          <div className='d-flex' style={{position: 'absolute', bottom: 8, right: 16}}>
+          <div className='d-flex' style={{justifyContent: 'flex-end', marginBottom: '-16px'}}>
             <Typography onClick={() => setExpanded(!expanded)} style={{ color: '#3A75CD', textDecoration: 'underline', cursor: 'pointer'}} variant="body1">
-              {expanded ? 'Click for Less Details'  : 'Click for More Details'}
+              {expanded ? 'Less Details'  : 'More Details'}
             </Typography>
           </div>
 
