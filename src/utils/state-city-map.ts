@@ -94,7 +94,7 @@ const statesCitiesData = [{
       'Daman',
       'Diu',
   ]}, {
-  state:'Delhi (National Capital Territory)', 
+  state:'Delhi', 
   cities: [
       'Delhi',
   ]}, {

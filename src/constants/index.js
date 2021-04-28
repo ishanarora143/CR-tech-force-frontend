@@ -6,7 +6,7 @@ const requirements = [
   'Home Care',
   'Testing',
   'Food / Tiffin',
-  'Ambulances'
+  'Ambulance'
 ];
 
 export { requirements };
