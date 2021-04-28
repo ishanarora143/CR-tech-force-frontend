@@ -62,36 +62,6 @@ Once you have the [Prerequisites](#prerequisites) covered:
 
 to start the server.
 
-<!-- 1. Install MongoDB and make sure it's running
-
-   - For Mac OSX with [homebrew](http://brew.sh/): `brew install mongodb` then `brew services start mongodb`
-   - For Windows and Linux: [MongoDB Installation](https://docs.mongodb.com/manual/installation/)
-
-1. Make a copy of `.env.sample` and rename it to `.env`. You can do so with this simple command:
-
-   > **NOTE:** If you are using Windows Command Prompt, you need to use `copy` instead of `cp`. <br>
-
-   ```sh
-   $ cp .env.sample .env
-   ```
-
-   You don't need to change any values in `.env` file. The default values work well for development purposes.
-
-1. Once you have MongoDB and `.env` file ready, seed the local database by running:
-
-   ```sh
-   $ yarn run seed
-   ```
-
-1. To make sure everything is setup properly, run tests.
-
-   ```sh
-   $ yarn run test
-   ```
-
-   If all tests pass, we can safely conclude that setup is complete and its working as expected. 🙌 Wooh!! <br>
-   If not, don't worry. We are together on this mission!! Reach out to us on our [Discord server](https://discord.gg/bPBuk3N). -->
-
 You can now visit <http://localhost:3000/> to view the application
 
 Further, checkout [package.json](https://github.com/CodingGardenCommunity/app-backend/blob/develop/package.json) file to learn about (more) available scripts/commands.
