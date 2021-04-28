@@ -182,17 +182,18 @@ const SearchResultCard = (props) => {
     const phoneNumberText = `Phone Number - ${phone}`;
     const addressText = `Address - ${location}`;
     const detailsText = `Other details - ${details}`;
+    const resourceLead = resourceType ? `${resourceType} lead information` : "";
 
-    const copyText = `${title ? `${title} - ` : ""}${
-      lastVerified ? lastVerifiedText : ""
-    }
-        ${phone ? phoneNumberText : ""}
-        ${location ? addressText : ""}
-        ${details ? detailsText : ""}
-        
-        To find more such covid related information leads, visit: ${
-          window.location.origin
-        }`;
+    const copyText = `${resourceLead}
+    ${title ? `${title} - ` : ""}
+    ${lastVerified ? lastVerifiedText : ""}
+    ${phone ? phoneNumberText : ""}
+    ${location ? addressText : ""}
+    ${details ? detailsText : ""}
+    
+    To find more such covid related information leads, visit: ${
+      window.location.origin
+    }`;
 
     return copyText;
   };
@@ -275,7 +276,7 @@ const SearchResultCard = (props) => {
               variant="body2"
               className="mr-3"
             >
-              Name: {title}
+              Name: {title || "---"}
             </Typography>
             <GreenTick />
           </div>
