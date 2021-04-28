@@ -180,19 +180,24 @@ const SearchResultCard = (props) => {
   const getInfoToCopy = () => {
     const lastVerifiedText = `Last Verified: ${getVerifiedText(lastVerified)}`;
     const phoneNumberText = `Phone Number - ${phone}`;
+    const stateText = state ? `State - ${state}` : "";
+    const cityText = city ? `City - ${city}` : "";
     const addressText = `Address - ${location}`;
     const detailsText = `Other details - ${details}`;
+    const resourceLead = resourceType ? `${resourceType} lead information` : "";
 
-    const copyText = `${title ? `${title} - ` : ""}${
-      lastVerified ? lastVerifiedText : ""
-    }
-        ${phone ? phoneNumberText : ""}
-        ${location ? addressText : ""}
-        ${details ? detailsText : ""}
-        
-        To find more such covid related information leads, visit: ${
-          window.location.origin
-        }`;
+    const copyText = `${resourceLead}
+    ${title ? `${title} - ` : ""}
+    ${lastVerified ? lastVerifiedText : ""}
+    ${phone ? phoneNumberText : ""}
+    ${stateText}
+    ${cityText}
+    ${location ? addressText : ""}
+    ${details ? detailsText : ""}
+    
+    To find more such covid related information leads, visit: ${
+      window.location.origin
+    }`;
 
     return copyText;
   };
@@ -275,7 +280,7 @@ const SearchResultCard = (props) => {
               variant="body2"
               className="mr-3"
             >
-              Name: {title}
+              Name: {title || "---"}
             </Typography>
             <GreenTick />
           </div>
