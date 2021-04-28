@@ -1,23 +1,22 @@
 import {
-  Dialog,
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  useMutation,
+} from "@apollo/client";
+import {
+  IconButton,
   makeStyles,
   MenuItem,
   TextField,
   Typography,
   withTheme,
 } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
-import React, { useState } from "react";
-import gql from "graphql-tag";
-import {
-  ApolloClient,
-  useMutation,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
+import CloseIcon from "@material-ui/icons/Close";
+import { Alert, Autocomplete } from "@material-ui/lab";
 import ApolloLinkTimeout from "apollo-link-timeout";
-import statesCitiesData from "./../../utils/state-city-map";
-import resourceData from "./../../utils/resources";
+import gql from "graphql-tag";
+import React, { useState } from "react";
 import Button from "../../components/Button";
 
 const timeoutLink = new ApolloLinkTimeout(15000);
@@ -700,11 +699,11 @@ const AddResources = (props) => {
   const [location, setLocation] = useState("");
   const [resource_type, setResourceType] = useState("");
   const [resource_subtype, setResourceSubtype] = useState("");
-  const [availability, setAvailability] = useState(null);
-  const [cost_per_unit, setCostPerUnit] = useState(null);
-  const [contact_name, setContactName] = useState(null);
-  const [contact_number, setContactNumber] = useState(null);
-  const [lead_source, setLeadSource] = useState(null);
+  const [availability, setAvailability] = useState("");
+  const [cost_per_unit, setCostPerUnit] = useState("");
+  const [contact_name, setContactName] = useState("");
+  const [contact_number, setContactNumber] = useState("");
+  const [lead_source, setLeadSource] = useState("");
 
   const [cityError, setCityError] = useState(false);
   const [stateError, setStateError] = useState(false);
@@ -715,19 +714,20 @@ const AddResources = (props) => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+  const [messageState, setMessageState] = useState("");
 
   const [createTicket] = useMutation(CREATE_TICKET, {
     variables: {
       state,
       city,
-      address: location,
-      supplierDonorName: contact_name,
-      supplierDonorContactNumber: contact_number,
-      resourceType: resource_type,
-      subResourceType: resource_subtype,
-      costPerUnit: cost_per_unit,
-      availableUnits: availability,
-      otherInfo: lead_source,
+      address: location || "",
+      supplierDonorName: contact_name || "",
+      supplierDonorContactNumber: contact_number || "",
+      resourceType: resource_type || "",
+      subResourceType: resource_subtype || "",
+      costPerUnit: cost_per_unit || "",
+      availableUnits: availability || "",
+      otherInfo: lead_source || "",
     },
     update(proxy, result) {
       console.log(result);
@@ -739,13 +739,16 @@ const AddResources = (props) => {
       ) {
         //
         setDialogMessage("Resource Uploaded Successfully");
+        setMessageState("success");
         setDialogOpen(true);
       } else {
         setDialogMessage("Error uploading resource, Please try again later.");
+        setMessageState("error");
         setDialogOpen(true);
       }
     },
     onError(err) {
+      setMessageState("error");
       setDialogMessage("Error uploading resource, Please try again later.");
       setDialogOpen(true);
     },
@@ -949,6 +952,7 @@ const AddResources = (props) => {
             onChange={(e) => setLeadSource(e.target.value)}
           />
           <Button
+            className="mb-3"
             name="Add resource"
             onClick={() => checkDataAndSubmit()}
             style={{
@@ -962,16 +966,27 @@ const AddResources = (props) => {
             color="primary"
             text="Submit"
           />
+          {dialogOpen && (
+            <Alert
+              severity={messageState}
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setDialogOpen(false);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+              {dialogMessage}
+            </Alert>
+          )}
         </div>
       </div>
-
-      <Dialog
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        style={{ padding: "56px", alignItems: "center" }}
-      >
-        <Typography variant="h4">{dialogMessage}</Typography>
-      </Dialog>
     </>
   );
 };
