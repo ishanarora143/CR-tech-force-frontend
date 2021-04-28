@@ -1,7 +1,7 @@
-# Covid resources
+# Covid resource
 
-Covid resources is an online platform to crowd source verified Covid resources such as beds, oxygen, food etc.
-Behind this application, we're a team of volunteers, working 24x7 to gather verified resources.
+Covid resource is an online platform to crowd-source verified Covid resources such as beds, oxygen, food etc.
+Behind this application, we're a team of volunteers working 24x7 to gather verified resources.
 
 ## Welcome to Covid resources Frontend repository
 
@@ -12,7 +12,7 @@ Find backend repo here: [https://github.com/madhavanmalolan/covidresources.in-ba
 ## How can you help us in this crisis?
 
 1. Become a volunteer - please spare as little as half an hour a day to help us in this crisis.
-2. [Contribute](#Contribute) - Help us develop/maintain this application to give seamless experience to those that are looking for resources.
+2. [Contribute](#Contribute) - Help us develop/maintain this application to give a seamless experience to those looking for resources.
 
 By helping each other is how we come out of this crisis.
 
@@ -29,12 +29,12 @@ By helping each other is how we come out of this crisis.
    Visit [Yarn download page](https://yarnpkg.com/en/docs/install). Select your Operating system and follow the instructions.
 
 <!-- 1. **EditorConfig:** <br>
-   Please visit [EditorConfig](https://editorconfig.org/) -> `Download a Plugin` section and scroll through to see if you need to install an additional Plugin/Extension for your code editor or IDE. If your IDE needs one, you should be able to find a link to that plugin/extension on that page.
+   Please visit [EditorConfig](https://editorconfig.org/) -> `Download a Plugin` section and scroll through to see if you need to install an additional Plugin/Extension for your code editor or IDE. If your IDE needs one, you should find a link to that plugin/extension on that page.
 
-   This prerequisite is directly related to: [`.editorconfig`][repo-link/blob/develop/.editorconfig] in the root directory of this project.
+   This prerequisite is directly related to [`.editorconfig`][repo-link/blob/develop/.editorconfig] in the root directory of this project.
 
    **_More About EditorConfig:_** <br>
-   EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles. EditorConfig files are easily readable and they work nicely with version control systems.
+   EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles. EditorConfig files are easily readable, and they work nicely with version control systems.
 
    -->
 
@@ -53,16 +53,16 @@ Once you have the [Prerequisites](#prerequisites) covered:
    yarn install
    ```
 
-1. Once that's done, you are ready to start contributing 😃 <br>
+1. You are ready to start contributing 😃 <br>
    You can run -
 
    ```sh
    yarn start
    ```
 
-to start the server.
+...to start the server.
 
-You can now visit <http://localhost:3000/> to view the application
+You can now visit <http://localhost:3000/> to view the application.
 
 Further, checkout [package.json](https://github.com/CodingGardenCommunity/app-backend/blob/develop/package.json) file to learn about (more) available scripts/commands.
 
