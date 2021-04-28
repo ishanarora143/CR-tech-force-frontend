@@ -158,6 +158,7 @@ const GET_SEARCH = (filter: any) => gql`
                   availableUnits
                   upvoteCount
                   resourceName
+                  contactName
                   resourceType
                   subResourceType
                   updatedAt
