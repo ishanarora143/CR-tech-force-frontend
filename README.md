@@ -5,6 +5,8 @@ Behind this application, we're a team of volunteers, working 24x7 to gather veri
 
 ## Welcome to Covid resources Frontend repository
 
+Project tracking: [Trello][project-tracking]
+
 Find backend repo here: [https://github.com/madhavanmalolan/covidresources.in-backend][backend-repository]
 
 ## How can you help us in this crisis?
@@ -107,3 +109,4 @@ Further, checkout [package.json](https://github.com/CodingGardenCommunity/app-ba
 [how-to-fork]: https://docs.github.com/en/github/getting-started-with-github/fork-a-repo
 [backend-repository]: https://github.com/madhavanmalolan/covidresources.in-backend
 [how-to-clone]: https://help.github.com/articles/cloning-a-repository/
+[project-tracking]: https://trello.com/b/QtahJCEi/covid-resources
