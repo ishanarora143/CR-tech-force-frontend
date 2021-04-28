@@ -638,7 +638,7 @@ const resourceTypes = [
   "Home Care",
   "Testing",
   "Food / Tiffin",
-  "Ambulances",
+  "Ambulance",
 ];
 
 const resourceSubtypes = {
@@ -654,7 +654,7 @@ const resourceSubtypes = {
   "Home Care": ["Home ICU Setup", "Nursing Staff"],
   Testing: ["Home Testing", "Lab Testing"],
   "Food / Tiffin": ["Tiffin Service", "Meal Provider"],
-  Ambulances: ["Normal / Advanced Life Support"],
+  Ambulance: ["Normal / Advanced Life Support"],
 };
 
 const CREATE_TICKET = gql`
