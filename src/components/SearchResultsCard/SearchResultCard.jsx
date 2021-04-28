@@ -15,7 +15,7 @@ import ThumbsDown from "../../global/assets/icons/thumbsdown.svg";
 import { gql, useMutation } from "@apollo/client";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import resourceData from '../../utils/resources';
+import resourceData from "../../utils/resources";
 dayjs.extend(relativeTime);
 
 const useStyles = makeStyles((theme) => ({
@@ -231,32 +231,63 @@ const SearchResultCard = (props) => {
     <div className={`${classes.container} ${props.className || ""}`}>
       <Card variant="outlined" className={classes.root}>
         <div className={classes.cardHeader}>
-          <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '3px'}}>
-            <div style={{height: '16px', width: '16px', borderRadius: '8px', background: '#fff', marginRight: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <img style={{height: '80%', width: '80%'}} src={resourceData.find(object => object.resource === resourceType).iconSrc} alt={resourceType} />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginBottom: "3px",
+            }}
+          >
+            <div
+              style={{
+                height: "16px",
+                width: "16px",
+                borderRadius: "8px",
+                background: "#fff",
+                marginRight: "3px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                style={{ height: "80%", width: "80%" }}
+                src={
+                  resourceData.find(
+                    (object) => object.resource === resourceType
+                  )?.iconSrc
+                }
+                alt={resourceType}
+              />
             </div>
-            <Typography style={{fontSize: '12px'}}>{resourceType}</Typography>
+            <Typography style={{ fontSize: "12px" }}>{resourceType}</Typography>
           </div>
 
-          <div style={{display: 'flex', marginBottom: '4px'}}>
-            <Typography style={{fontSize: '18px'}}>{subResourceType || resourceType}</Typography>
-          </div>
-          
-          <div style={{ marginBottom: '3px'}} className="d-flex">
-            <Typography style={{opacity: 0.8}} variant="body2">Name: {title}</Typography>
-            <GreenTick />
-          </div>
-
-          <div style={{opacity: 0.8, marginBottom: '2px'}} className="d-flex">
-            <Typography variant="body2">
-              {city}
+          <div style={{ display: "flex", marginBottom: "4px" }}>
+            <Typography style={{ fontSize: "18px" }}>
+              {subResourceType || resourceType}
             </Typography>
           </div>
 
-          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <Typography style={{fontSize: '12px', opacity: 0.7}} variant='body2'>Last Verified: {getVerifiedText(lastVerified)}</Typography>
+          <div style={{ marginBottom: "3px" }} className="d-flex">
+            <Typography style={{ opacity: 0.8 }} variant="body2">
+              Name: {title}
+            </Typography>
+            <GreenTick />
           </div>
 
+          <div style={{ opacity: 0.8, marginBottom: "2px" }} className="d-flex">
+            <Typography variant="body2">{city}</Typography>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Typography
+              style={{ fontSize: "12px", opacity: 0.7 }}
+              variant="body2"
+            >
+              Last Verified: {getVerifiedText(lastVerified)}
+            </Typography>
+          </div>
         </div>
 
         <div className={classes.cardContent}>
@@ -276,46 +307,74 @@ const SearchResultCard = (props) => {
               COPY
             </Button>
           </div>
-          
+
           <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
             State
           </Typography>
-          <Typography variant="body1">{state || 'Info Not Available'}</Typography>
-          
+          <Typography variant="body1">
+            {state || "Info Not Available"}
+          </Typography>
+
           <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
             Cost Per Unit
           </Typography>
-          <Typography variant="body1">{costPerUnit || 'Info Not Available'}</Typography>
+          <Typography variant="body1">
+            {costPerUnit || "Info Not Available"}
+          </Typography>
 
           {expanded ? (
             <>
-              <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
+              <Typography
+                style={{ marginTop: theme.spacing(2) }}
+                variant="body2"
+              >
                 Availability
               </Typography>
-              <Typography variant="body1">{availability || 'Info Not Available'}</Typography>              
-
-              <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
-                Location  
+              <Typography variant="body1">
+                {availability || "Info Not Available"}
               </Typography>
-              <Typography variant="body1">{location || 'Info Not Available'}</Typography>
 
-              <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
+              <Typography
+                style={{ marginTop: theme.spacing(2) }}
+                variant="body2"
+              >
+                Location
+              </Typography>
+              <Typography variant="body1">
+                {location || "Info Not Available"}
+              </Typography>
+
+              <Typography
+                style={{ marginTop: theme.spacing(2) }}
+                variant="body2"
+              >
                 Other Info
               </Typography>
-              <Typography variant="body1">{details || 'Info Not Available'}</Typography>
+              <Typography variant="body1">
+                {details || "Info Not Available"}
+              </Typography>
             </>
           ) : null}
 
-          <div className='d-flex' style={{justifyContent: 'flex-end', marginBottom: '-16px'}}>
-            <Typography onClick={() => setExpanded(!expanded)} style={{ color: '#3A75CD', textDecoration: 'underline', cursor: 'pointer'}} variant="body1">
-              {expanded ? 'Less Details'  : 'More Details'}
+          <div
+            className="d-flex"
+            style={{ justifyContent: "flex-end", marginBottom: "-16px" }}
+          >
+            <Typography
+              onClick={() => setExpanded(!expanded)}
+              style={{
+                color: "#3A75CD",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              variant="body1"
+            >
+              {expanded ? "Less Details" : "More Details"}
             </Typography>
           </div>
-
         </div>
 
         <div className={classes.cardFooter}>
-                    
           <Typography style={{ opacity: 0.7 }} variant="body1">
             Was this helpful?
           </Typography>
