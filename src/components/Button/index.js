@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Button = ({ style, name, variant, icon, disabled = false, label, onClick = () => { } }) => {
+const Button = ({ underlined, style, name, variant, icon, disabled = false, text, onClick = () => { } }) => {
   const classes = useStyles();
 
   const handleOnClick = (event) => {
@@ -39,8 +39,8 @@ const Button = ({ style, name, variant, icon, disabled = false, label, onClick =
       startIcon={icon}
       onClick={handleOnClick}
     >
-      <span style={{ textDecoration: variant ? 'underline' : 'none' }}>
-        {label}
+      <span style={{ textDecoration: underlined ? 'underline' : 'none' }}>
+        {text}
       </span>
     </MaterialUIButton>
   );

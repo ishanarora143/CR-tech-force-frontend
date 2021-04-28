@@ -9,22 +9,26 @@ import {
 import { Autocomplete } from "@material-ui/lab";
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import { ApolloClient, useMutation, InMemoryCache, createHttpLink } from "@apollo/client";
-import ApolloLinkTimeout from 'apollo-link-timeout';
-import statesCitiesData from './../../utils/state-city-map';
-import resourceData from './../../utils/resources';
+import {
+  ApolloClient,
+  useMutation,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
+import ApolloLinkTimeout from "apollo-link-timeout";
+import statesCitiesData from "./../../utils/state-city-map";
+import resourceData from "./../../utils/resources";
 import Button from "../../components/Button";
-
 
 const timeoutLink = new ApolloLinkTimeout(15000);
 const httpLink = createHttpLink({
-  uri: 'https://vz3uy4iya2.execute-api.ap-south-1.amazonaws.com/dev/graphql'
-})
+  uri: "https://vz3uy4iya2.execute-api.ap-south-1.amazonaws.com/dev/graphql",
+});
 
 const timeoutHttpLink = timeoutLink.concat(httpLink);
 const apolloClient = new ApolloClient({
   link: timeoutHttpLink,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -820,7 +824,6 @@ const AddResources = (props) => {
               />
             )}
           />
-
           <Autocomplete
             options={cities[state] || []}
             disabled={state in cities ? false : true}
@@ -838,7 +841,6 @@ const AddResources = (props) => {
               />
             )}
           />
-
           <TextField
             style={{ width: "100%" }}
             variant="outlined"
@@ -848,7 +850,6 @@ const AddResources = (props) => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-
           <TextField
             select
             error={resourceError}
@@ -869,7 +870,6 @@ const AddResources = (props) => {
               </MenuItem>
             ))}
           </TextField>
-
           <TextField
             select
             error={subResourceError}
@@ -891,7 +891,6 @@ const AddResources = (props) => {
                 ))
               : null}
           </TextField>
-
           <TextField
             select
             variant="outlined"
@@ -911,7 +910,6 @@ const AddResources = (props) => {
               {"Unavailable"}
             </MenuItem>
           </TextField>
-
           <TextField
             style={{ width: "100%" }}
             variant="outlined"
@@ -950,7 +948,6 @@ const AddResources = (props) => {
             value={lead_source}
             onChange={(e) => setLeadSource(e.target.value)}
           />
-
           <Button
             name="Add resource"
             onClick={() => checkDataAndSubmit()}
@@ -963,9 +960,8 @@ const AddResources = (props) => {
             }}
             variant="contained"
             color="primary"
-          >
-            Submit
-          </Button>
+            text="Submit"
+          />
         </div>
       </div>
 
