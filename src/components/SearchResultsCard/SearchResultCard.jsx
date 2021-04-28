@@ -270,7 +270,11 @@ const SearchResultCard = (props) => {
           </div>
 
           <div style={{ marginBottom: "3px" }} className="d-flex">
-            <Typography style={{ opacity: 0.8 }} variant="body2">
+            <Typography
+              style={{ opacity: 0.8 }}
+              variant="body2"
+              className="mr-3"
+            >
               Name: {title}
             </Typography>
             <GreenTick />

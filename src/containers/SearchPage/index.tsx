@@ -122,7 +122,7 @@ function SearchPage() {
               <SearchResultCard
                 key={index}
                 className="col-12 col-md-6 col-lg-4 px-sm-4"
-                title={edgeData.node.resourceName}
+                title={edgeData.node.contactName || '---'}
                 lastVerified={edgeData.node.updatedAt}
                 phone={edgeData.node.supplierDonorContactNumber}
                 location={edgeData.node.address}
