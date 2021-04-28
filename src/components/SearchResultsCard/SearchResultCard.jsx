@@ -180,6 +180,8 @@ const SearchResultCard = (props) => {
   const getInfoToCopy = () => {
     const lastVerifiedText = `Last Verified: ${getVerifiedText(lastVerified)}`;
     const phoneNumberText = `Phone Number - ${phone}`;
+    const stateText = state ? `State - ${state}` : "";
+    const cityText = city ? `City - ${city}` : "";
     const addressText = `Address - ${location}`;
     const detailsText = `Other details - ${details}`;
     const resourceLead = resourceType ? `${resourceType} lead information` : "";
@@ -188,6 +190,8 @@ const SearchResultCard = (props) => {
     ${title ? `${title} - ` : ""}
     ${lastVerified ? lastVerifiedText : ""}
     ${phone ? phoneNumberText : ""}
+    ${stateText}
+    ${cityText}
     ${location ? addressText : ""}
     ${details ? detailsText : ""}
     
