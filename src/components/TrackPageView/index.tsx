@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
-import ReactGA from 'react-ga';
 import { useHistory } from 'react-router';
+import { pageview } from '../../utils/gtag';
 
 function TrackPageView() {
     const history = useHistory();
 
     const submitPageTrackData = (location: any) => {
-        ReactGA.set({ page: location.pathname })
-        ReactGA.pageview(location.pathname)
+        pageview(location.pathname)
     }
 
     useEffect(() => {

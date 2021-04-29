@@ -2,7 +2,6 @@ import React from 'react';
 import clsx from 'clsx';
 import MaterialUIButton from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import ReactGA from 'react-ga'
 
 import './Button.scss';
 
@@ -19,12 +18,6 @@ const Button = ({ underlined, style, name, variant, icon, disabled = false, text
   const classes = useStyles();
 
   const handleOnClick = (event) => {
-    if (name) {
-      ReactGA.event({
-        category: name,
-        transport: 'beacon'
-      })
-    }
     onClick(event);
   }
 
