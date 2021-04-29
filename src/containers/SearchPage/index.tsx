@@ -9,6 +9,7 @@ import SearchBar from '../../components/SearchBar';
 import SearchResultCard from '../../components/SearchResultsCard/SearchResultCard';
 import ROUTES from '../../constants/routes';
 import { Context as SearchContext } from './../../context/SearchContext';
+import { logEvent } from "../../utils/gtag";
 
 const TIMEOUT_DEFAULT_TIME = 15;
 const TWITTER_SOCIAL_HANDLE = 'https://twitter.com/COVResourcesIn'
@@ -90,6 +91,12 @@ function SearchPage() {
   return (
     <div>
       <SearchBar onSubmit={() => {
+        logEvent({
+          action: 'submit_search',
+          page_location: window.location.pathname,
+          name: 'Search',
+          value: `State - ${state?.searchInputs?.state}, City - ${state?.searchInputs?.city}, Requirement - ${state?.searchInputs?.requirement}`
+        })
         handleClose();
         setCurrentData([]);
         executeSearch();
