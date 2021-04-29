@@ -7,7 +7,7 @@ import './PopularCities.scss';
 
 const popularStateCity = [
   {
-    state: 'Delhi (National Capital Territory)',
+    state: 'Delhi',
     city: 'Delhi'
   },
   {
