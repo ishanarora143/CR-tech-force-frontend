@@ -100,7 +100,6 @@ const SearchResultCard = (props) => {
     location,
     details,
     thumbsUpcount,
-    thumbsDownCount,
     theme,
     ticketId,
     resourceType,
@@ -409,7 +408,6 @@ const SearchResultCard = (props) => {
               <Badge
                 classes={{ badge: classes.badge }}
                 color="secondary"
-                badgeContent={thumbsDownCount}
                 badgeContent={upvote < 0 ? upvote : null}
               >
                 <img src={ThumbsDown} alt={"thumbs down"} />
