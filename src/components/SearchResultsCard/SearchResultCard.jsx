@@ -276,14 +276,10 @@ const SearchResultCard = (props) => {
 
           <div className="d-flex align-items-start mb-1">
             <div className="mr-3 flex-grow-1 d-flex align-items-start">
-              {title && (
-                <>
-                  <span style={{ opacity: 0.8 }} className="mr-2">
-                    Name:{" "}
-                  </span>
-                  <Typography>{title || "-"}</Typography>
-                </>
-              )}
+              <span style={{ opacity: 0.8 }} className="mr-2">
+                Name:{" "}
+              </span>
+              <Typography>{title || "-"}</Typography>
             </div>
           </div>
 
