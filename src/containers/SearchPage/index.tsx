@@ -15,8 +15,8 @@ const TIMEOUT_DEFAULT_TIME = 15;
 const TWITTER_SOCIAL_HANDLE = 'https://twitter.com/COVResourcesIn'
 
 const sortOnUpvoteCountBasis = (dataArray: any[]) => {
-  const upVoteData = dataArray.filter(data => data.node.upvoteCount >= 0);
-  const downVoteData = dataArray.filter(data => data.node.upvoteCount < 0);
+  const upVoteData = dataArray.filter(data => data.node.upvoteCount >= -3);
+  const downVoteData = dataArray.filter(data => data.node.upvoteCount < -3);
 
   return [
     ...upVoteData,
