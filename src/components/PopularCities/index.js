@@ -48,7 +48,15 @@ const PopularCities = (props) => {
       style={{ marginRight: '8px', marginBottom: '8px' }}
       key={city}
       text={city}
-      onClick={() => handleSubmit(city, state)}
+      onClick={() => {
+        logEvent({
+          action: 'submit_search_popular_city',
+          page_location: window.location.pathname,
+          name: 'Search',
+          value: `State - ${state}, City - ${city}`
+        })
+        handleSubmit(city, state)
+      }}
     />
   ));
 
