@@ -121,10 +121,29 @@ const SearchResultCard = (props) => {
   const [dialogMessage, setDialogMessage] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [allowUpvote, setAllowUpvote] = useState(true);
-  const [allowDownvote, setAllowDownvote] = useState(true);
-
   const [expanded, setExpanded] = useState(false);
+
+  const handleTicketVoteClick = (vote) => {
+    let allowVote = localStorage.getItem(`allowVote_${ticketId}`);
+
+    if(allowVote && allowVote != vote){
+      setDialogMessage(`${vote} vote is already done for this info.`);
+      setDialogOpen(true);
+      return false;
+    }
+
+    if(vote === 'up'){
+      upvoteTicket();
+    }else if(vote === 'down'){
+      downvoteTicket();
+    }
+  }
+  
+  const handleTicketVote = (voteCount, downVote, upVote) => {
+    setUpvote(voteCount);
+    let allowVote = upVote ? 'up' : 'down';
+    localStorage.setItem(`allowVote_${ticketId}`, allowVote);
+  }
 
   const [upvoteTicket] = useMutation(UPVOTE_COUNT, {
     variables: {
@@ -137,9 +156,7 @@ const SearchResultCard = (props) => {
         result.data.upvoteTicket &&
         result.data.upvoteTicket.status === "200"
       ) {
-        setUpvote(upvote + 1);
-        setAllowDownvote(true);
-        setAllowUpvote(false);
+        handleTicketVote(upvote + 1, true, false);
       } else {
         setDialogMessage("Please try again later.");
         setDialogOpen(true);
@@ -162,9 +179,7 @@ const SearchResultCard = (props) => {
         result.data.downvoteTicket &&
         result.data.downvoteTicket.status === "200"
       ) {
-        setUpvote(upvote - 1);
-        setAllowDownvote(false);
-        setAllowUpvote(true);
+        handleTicketVote(upvote - 1, false, true);
       } else {
         setDialogMessage("Please try again later.");
         setDialogOpen(true);
@@ -378,7 +393,7 @@ const SearchResultCard = (props) => {
           </Typography>
           <div className={classes.thumbsUp}>
             <IconButton
-              onClick={() => allowUpvote && upvoteTicket()}
+              onClick={() => handleTicketVoteClick('up')}
               style={{ background: "#cccccc" }}
             >
               <Badge
@@ -398,7 +413,7 @@ const SearchResultCard = (props) => {
           </div>
           <div className={classes.thumbsDown}>
             <IconButton
-              onClick={() => allowDownvote && downvoteTicket()}
+              onClick={() => handleTicketVoteClick('down')}
               style={{ background: "#cccccc" }}
             >
               <Badge
