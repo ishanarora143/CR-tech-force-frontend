@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Button = ({ underlined, style, name, variant, icon, disabled = false, text, onClick = () => { } }) => {
+const Button = ({ id, underlined, style, name, variant, icon, disabled = false, text, onClick = () => { } }) => {
   const classes = useStyles();
 
   const handleOnClick = (event) => {
@@ -26,6 +26,7 @@ const Button = ({ underlined, style, name, variant, icon, disabled = false, text
       variant={variant || "contained"}
       color="primary"
       disabled={disabled}
+      id={props.id}
       size="large"
       style={style}
       className={clsx(classes.button, variant ? 'Button' : 'Button linear-gradient')}
