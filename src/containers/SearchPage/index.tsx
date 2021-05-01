@@ -102,6 +102,12 @@ function SearchPage() {
   return (
     <div>
       <SearchBar onSubmit={() => {
+        logEvent({
+          action: 'submit_search',
+          page_location: window.location.pathname,
+          name: 'Search',
+          value: `State - ${state?.searchInputs?.state}, City - ${state?.searchInputs?.city}, Requirement - ${state?.searchInputs?.requirement}`
+        })
         handleClose();
         setCurrentData([]);
         executeSearch();

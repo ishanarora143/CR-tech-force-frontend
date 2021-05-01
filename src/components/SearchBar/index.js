@@ -119,7 +119,6 @@ const SearchBar = (props) => {
       <Button
         label="Find Leads"
         icon={<SearchIcon />}
-        id="searchButton"
         name="Search leads"
         onClick={() => handleSubmit()}
         disabled={!(selectedRequirement || selectedCity || selectedState)}
