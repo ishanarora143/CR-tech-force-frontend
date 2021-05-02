@@ -21,7 +21,7 @@ import Button from "../../components/Button";
 
 const timeoutLink = new ApolloLinkTimeout(15000);
 const httpLink = createHttpLink({
-  uri: "https://vz3uy4iya2.execute-api.ap-south-1.amazonaws.com/dev/graphql",
+  uri: "https://yoy7i9q6o0.execute-api.us-east-1.amazonaws.com/dev/graphql",
 });
 
 const timeoutHttpLink = timeoutLink.concat(httpLink);
