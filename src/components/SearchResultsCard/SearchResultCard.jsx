@@ -116,33 +116,37 @@ const SearchResultCard = (props) => {
     thumbsUpcount = 0;
   }
 
+  const [voted, setVoted] = useState(localStorage.getItem('voted'))
   const [upvote, setUpvote] = useState(thumbsUpcount);
 
   const [dialogMessage, setDialogMessage] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-
   const [expanded, setExpanded] = useState(false);
 
   const handleTicketVoteClick = (vote) => {
-    let allowVote = localStorage.getItem(`allowVote_${ticketId}`);
+    let votedFor = localStorage.getItem('voted');
+    
+    if(votedFor){
+      votedFor = JSON.parse(votedFor);
 
-    if(allowVote && allowVote != vote){
-      setDialogMessage(`${vote} vote is already done for this info.`);
-      setDialogOpen(true);
-      return false;
+      if(votedFor[ticketId]){
+        if(votedFor[ticketId] === vote){
+          vote = vote === 'up' ? 'down' : 'up';
+        }
+        
+        delete votedFor[ticketId];
+      }else{
+        votedFor[ticketId] = vote;
+      }
+    }else{
+      votedFor = {}
+      votedFor[ticketId] = vote;
     }
-
-    if(vote === 'up'){
-      upvoteTicket();
-    }else if(vote === 'down'){
-      downvoteTicket();
-    }
-  }
-  
-  const handleTicketVote = (voteCount, downVote, upVote) => {
-    setUpvote(voteCount);
-    let allowVote = upVote ? 'up' : 'down';
-    localStorage.setItem(`allowVote_${ticketId}`, allowVote);
+    
+    setVoted(votedFor);
+    
+    vote === 'up' ? upvoteTicket() :  downvoteTicket()
+    localStorage.setItem('voted', JSON.stringify(votedFor))
   }
 
   const [upvoteTicket] = useMutation(UPVOTE_COUNT, {
@@ -156,13 +160,14 @@ const SearchResultCard = (props) => {
         result.data.upvoteTicket &&
         result.data.upvoteTicket.status === "200"
       ) {
-        handleTicketVote(upvote + 1, true, false);
+        setUpvote(upvote + 1);
       } else {
         setDialogMessage("Please try again later.");
         setDialogOpen(true);
       }
     },
     onError(err) {
+      console.log(err);
       setDialogMessage("Please try again later.");
       setDialogOpen(true);
     },
@@ -179,13 +184,14 @@ const SearchResultCard = (props) => {
         result.data.downvoteTicket &&
         result.data.downvoteTicket.status === "200"
       ) {
-        handleTicketVote(upvote - 1, false, true);
+        setUpvote(upvote - 1);
       } else {
         setDialogMessage("Please try again later.");
         setDialogOpen(true);
       }
     },
     onError(err) {
+      console.log(err);
       setDialogMessage("Please try again later.");
       setDialogOpen(true);
     },
@@ -394,7 +400,7 @@ const SearchResultCard = (props) => {
           <div className={classes.thumbsUp}>
             <IconButton
               onClick={() => handleTicketVoteClick('up')}
-              style={{ background: "#cccccc" }}
+              style={{ background: voted && voted[ticketId] === 'up' ? '#46D3BA' : '#cccccc' }}
             >
               <Badge
                 classes={{ badge: classes.badge }}
@@ -414,7 +420,7 @@ const SearchResultCard = (props) => {
           <div className={classes.thumbsDown}>
             <IconButton
               onClick={() => handleTicketVoteClick('down')}
-              style={{ background: "#cccccc" }}
+              style={{ background: voted && voted[ticketId] === 'down' ? '#46D3BA' : '#cccccc' }}
             >
               <Badge
                 classes={{ badge: classes.badge }}
