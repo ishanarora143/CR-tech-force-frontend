@@ -17,6 +17,8 @@ import { Alert, Autocomplete } from "@material-ui/lab";
 import ApolloLinkTimeout from "apollo-link-timeout";
 import gql from "graphql-tag";
 import React, { useState } from "react";
+import { useLocation } from "react-router";
+import { VERIFIED_LEAD_PAGE_ROUTE } from "../../App";
 import Button from "../../components/Button";
 
 const timeoutLink = new ApolloLinkTimeout(15000);
@@ -669,6 +671,7 @@ const CREATE_TICKET = gql`
     $costPerUnit: String
     $availableUnits: String
     $otherInfo: String
+    $secretKey: String
   ) {
     createTicket(
       input: {
@@ -682,6 +685,7 @@ const CREATE_TICKET = gql`
         costPerUnit: $costPerUnit
         availableUnits: $availableUnits
         otherInfo: $otherInfo
+        secretKey: $secretKey
       }
     ) {
       status
@@ -704,6 +708,7 @@ const AddResources = (props) => {
   const [contact_name, setContactName] = useState("");
   const [contact_number, setContactNumber] = useState("");
   const [lead_source, setLeadSource] = useState("");
+  const [password, setPassword] = useState("");
 
   const [cityError, setCityError] = useState(false);
   const [stateError, setStateError] = useState(false);
@@ -711,10 +716,15 @@ const AddResources = (props) => {
   const [subResourceError, setSubResourceError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [numberError, setNumberError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
   const [messageState, setMessageState] = useState("");
+
+  const locationRouter = useLocation();
+  const isVerifiedLeadPage =
+    locationRouter.pathname === VERIFIED_LEAD_PAGE_ROUTE;
 
   const [createTicket] = useMutation(CREATE_TICKET, {
     variables: {
@@ -728,6 +738,7 @@ const AddResources = (props) => {
       costPerUnit: cost_per_unit || "",
       availableUnits: availability || "",
       otherInfo: lead_source || "",
+      secretKey: password || "",
     },
     update(proxy, result) {
       console.log(result);
@@ -780,6 +791,11 @@ const AddResources = (props) => {
     }
     if (!contact_number) {
       setNumberError(true);
+      error = true;
+    }
+
+    if (!password.trim()) {
+      setPasswordError(true);
       error = true;
     }
 
@@ -951,6 +967,20 @@ const AddResources = (props) => {
             value={lead_source}
             onChange={(e) => setLeadSource(e.target.value)}
           />
+          {isVerifiedLeadPage && (
+            <TextField
+              style={{ width: "100%" }}
+              variant="outlined"
+              label="Password"
+              required
+              value={password}
+              error={passwordError}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError(false);
+              }}
+            />
+          )}
           <Button
             className="mb-3"
             name="Add resource"
