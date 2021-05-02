@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import { requirements } from '../../constants';
 import ROUTES from '../../constants/routes';
+import { logEvent } from '../../utils/gtag';
 import JumboButton from './../../components/JumboButton';
 import Logo from './../../components/Logo';
 import PopularCities from './../../components/PopularCities';
@@ -76,10 +77,26 @@ const Dashboard = () => {
         iconSrc={imgSrc}
         primaryText={primaryText}
         secondaryText={secondaryText}
-        onClick={() => handleOnClick(value)}
+        onClick={() => {
+          logEvent({
+            action: 'submit_search',
+            name: 'Search Looking for?',
+            value,
+            page_location: window.location.pathname
+          })
+          handleOnClick(value)
+        }}
       />
     )
   );
+
+  const handleFollowTwitterOnClick = () => {
+    logEvent({
+      action: 'click',
+      name: 'Follow Twitter',
+    })
+  };
+
   return (
     <div className="Dashboard d-flex flex-direction-col align-items-center">
       <section className="Dashboard-top d-flex flex-direction-col align-items-center">
@@ -88,7 +105,7 @@ const Dashboard = () => {
           Powered by an army of selfless volunteers, working 24x7 to help you find verified resources related to all COVID needs. Follow us on Twitter for live updates
         </div>
         <div className="mb-3">
-          <a href="https://twitter.com/COVResourcesIn?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-size="large" data-show-count="false">Follow @COVResourcesIn</a>
+          <a onClick={handleFollowTwitterOnClick} href="https://twitter.com/COVResourcesIn?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-size="large" data-show-count="false">Follow @COVResourcesIn</a>
         </div>
         <SearchBar />
         <PopularCities />

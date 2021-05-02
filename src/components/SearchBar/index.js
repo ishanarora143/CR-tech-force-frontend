@@ -13,6 +13,7 @@ import Button from './../Button';
 import SelectInput from './../SelectInput';
 
 import './SearchBar.scss';
+import { logEvent } from '../../utils/gtag';
 
 const SearchBar = (props) => {
   const { history } = props;
@@ -61,6 +62,13 @@ const SearchBar = (props) => {
         : [];
 
     setCities(citiesData);
+
+    logEvent({
+      action: 'selection',
+      name: 'Select State',
+      value: selectedState,
+      page_location: window.location.pathname
+    })
   };
 
 
@@ -68,10 +76,22 @@ const SearchBar = (props) => {
 
   const handleCityChange = (selectedCity) => {
     setSelectedCity(selectedCity);
+    logEvent({
+      action: 'selection',
+      name: 'Select City',
+      value: selectedCity,
+      page_location: window.location.pathname
+    })
   };
 
   const handleRequirementChange = (selectedRequirement) => {
     setSelectedRequirement(selectedRequirement);
+    logEvent({
+      action: 'selection',
+      name: 'Select Requirement',
+      value: selectedRequirement,
+      page_location: window.location.pathname
+    })
   };
 
   const handleSubmit = () => {

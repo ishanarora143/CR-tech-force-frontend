@@ -51,9 +51,9 @@ const PopularCities = (props) => {
       text={city}
       onClick={() => {
         logEvent({
-          action: 'submit_search_popular_city',
+          action: 'submit_search',
           page_location: window.location.pathname,
-          name: 'Search',
+          name: 'Search Popular Cities',
           value: `State - ${state}, City - ${city}`
         })
         handleSubmit(city, state)
