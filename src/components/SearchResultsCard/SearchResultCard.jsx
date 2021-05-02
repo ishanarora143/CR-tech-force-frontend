@@ -116,7 +116,8 @@ const SearchResultCard = (props) => {
     thumbsUpcount = 0;
   }
 
-  const [voted, setVoted] = useState(localStorage.getItem('voted'))
+  let curentVote = JSON.parse(localStorage.getItem('voted'));
+  const [voted, setVoted] = useState(curentVote);
   const [upvote, setUpvote] = useState(thumbsUpcount);
 
   const [dialogMessage, setDialogMessage] = useState("");
