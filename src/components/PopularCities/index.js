@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { withRouter } from 'react-router';
+import { logEvent } from '../../utils/gtag';
 import Button from '../Button';
 import ROUTES from './../../constants/routes';
 import { Context as SearchContext } from './../../context/SearchContext';
@@ -48,7 +49,15 @@ const PopularCities = (props) => {
       style={{ marginRight: '8px', marginBottom: '8px' }}
       key={city}
       text={city}
-      onClick={() => handleSubmit(city, state)}
+      onClick={() => {
+        logEvent({
+          action: 'submit_search',
+          page_location: window.location.pathname,
+          name: 'Search Popular Cities',
+          value: `State - ${state}, City - ${city}`
+        })
+        handleSubmit(city, state)
+      }}
     />
   ));
 

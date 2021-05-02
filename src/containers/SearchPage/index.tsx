@@ -14,6 +14,16 @@ import { logEvent } from "../../utils/gtag";
 const TIMEOUT_DEFAULT_TIME = 15;
 const TWITTER_SOCIAL_HANDLE = 'https://twitter.com/COVResourcesIn'
 
+const sortOnUpvoteCountBasis = (dataArray: any[]) => {
+  const upVoteData = dataArray.filter(data => data.node.upvoteCount >= -3);
+  const downVoteData = dataArray.filter(data => data.node.upvoteCount < -3);
+
+  return [
+    ...upVoteData,
+    ...downVoteData
+  ]
+}
+
 function SearchPage() {
   const { state } = useContext(SearchContext);
 
@@ -51,10 +61,11 @@ function SearchPage() {
   const [executeSearch, { loading, called }] = useLazyQuery(GET_SEARCH(getFilter()), {
     fetchPolicy: 'cache-and-network',
     onCompleted: (data) => {
-      const finalData = data?.workspace?.tickets?.edges || [];
+      let finalData = data?.workspace?.tickets?.edges || [];
       if (finalData.length === 0) {
         enableRedirectionToSocialHandle();
       }
+      finalData = sortOnUpvoteCountBasis(finalData)
       setCurrentData(finalData)
     }, onError: () => {
       enableRedirectionToSocialHandle();

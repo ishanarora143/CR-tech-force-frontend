@@ -100,7 +100,6 @@ const SearchResultCard = (props) => {
     location,
     details,
     thumbsUpcount,
-    thumbsDownCount,
     theme,
     ticketId,
     resourceType,
@@ -266,34 +265,34 @@ const SearchResultCard = (props) => {
               />
             </div>
             <Typography style={{ fontSize: "12px" }}>{resourceType}</Typography>
+            <GreenTick className="ml-3" />
           </div>
 
           <div style={{ display: "flex", marginBottom: "4px" }}>
             <Typography style={{ fontSize: "18px" }}>
-              {subResourceType || resourceType}
+              {subResourceType}
             </Typography>
           </div>
 
-          <div style={{ marginBottom: "3px" }} className="d-flex">
-            <Typography
-              style={{ opacity: 0.8 }}
-              variant="body2"
-              className="mr-3"
-            >
-              Name: {title || "---"}
-            </Typography>
-            <GreenTick />
+          <div className="d-flex align-items-start mb-1">
+            <div className="mr-3 flex-grow-1 d-flex align-items-start">
+              <span style={{ opacity: 0.8 }} className="mr-2">
+                Name:{" "}
+              </span>
+              <Typography>{title || "-"}</Typography>
+            </div>
           </div>
 
-          <div style={{ opacity: 0.8, marginBottom: "2px" }} className="d-flex">
-            <Typography variant="body2">{city}</Typography>
-          </div>
-
+          {city && (
+            <div style={{ marginBottom: "2px" }} className="d-flex">
+              <span style={{ opacity: 0.8 }} className="mr-3">
+                City:
+              </span>
+              <Typography>{city}</Typography>
+            </div>
+          )}
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Typography
-              style={{ fontSize: "12px", opacity: 0.7 }}
-              variant="body2"
-            >
+            <Typography style={{ fontSize: "12px", opacity: 0.7 }}>
               Last Verified: {getVerifiedText(lastVerified)}
             </Typography>
           </div>
@@ -320,16 +319,12 @@ const SearchResultCard = (props) => {
           <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
             State
           </Typography>
-          <Typography variant="body1">
-            {state || "Info Not Available"}
-          </Typography>
+          <Typography variant="body1">{state || "-"}</Typography>
 
           <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
             Cost Per Unit
           </Typography>
-          <Typography variant="body1">
-            {costPerUnit || "Info Not Available"}
-          </Typography>
+          <Typography variant="body1">{costPerUnit || "-"}</Typography>
 
           {expanded ? (
             <>
@@ -339,9 +334,7 @@ const SearchResultCard = (props) => {
               >
                 Availability
               </Typography>
-              <Typography variant="body1">
-                {availability || "Info Not Available"}
-              </Typography>
+              <Typography variant="body1">{availability || "-"}</Typography>
 
               <Typography
                 style={{ marginTop: theme.spacing(2) }}
@@ -349,9 +342,7 @@ const SearchResultCard = (props) => {
               >
                 Location
               </Typography>
-              <Typography variant="body1">
-                {location || "Info Not Available"}
-              </Typography>
+              <Typography variant="body1">{location || "-"}</Typography>
 
               <Typography
                 style={{ marginTop: theme.spacing(2) }}
@@ -359,9 +350,7 @@ const SearchResultCard = (props) => {
               >
                 Other Info
               </Typography>
-              <Typography variant="body1">
-                {details || "Info Not Available"}
-              </Typography>
+              <Typography variant="body1">{details || "-"}</Typography>
             </>
           ) : null}
 
@@ -395,7 +384,7 @@ const SearchResultCard = (props) => {
               <Badge
                 classes={{ badge: classes.badge }}
                 color="secondary"
-                badgeContent={upvote}
+                badgeContent={upvote > 0 ? upvote : null}
               >
                 <img src={ThumbsUp} alt={"thumbs up"} />
               </Badge>
@@ -415,7 +404,7 @@ const SearchResultCard = (props) => {
               <Badge
                 classes={{ badge: classes.badge }}
                 color="secondary"
-                badgeContent={thumbsDownCount}
+                badgeContent={upvote < 0 ? upvote : null}
               >
                 <img src={ThumbsDown} alt={"thumbs down"} />
               </Badge>
