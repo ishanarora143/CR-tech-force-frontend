@@ -559,6 +559,7 @@ const cities = {
     "Mirzapur-Vindhyachal",
     "Moradabad",
     "Muzaffarnagar",
+    "Noida",
     "Partapgarh",
     "Pilibhit",
     "Prayagraj",
