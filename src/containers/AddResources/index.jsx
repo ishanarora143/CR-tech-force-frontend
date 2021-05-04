@@ -755,14 +755,19 @@ const AddResources = (props) => {
         setMessageState("success");
         setDialogOpen(true);
       } else {
-        setDialogMessage("Error uploading resource, Please try again later.");
+        setDialogMessage(
+          result?.data?.createTicket?.message ??
+            "Error uploading resource, Please try again later."
+        );
         setMessageState("error");
         setDialogOpen(true);
       }
     },
     onError(err) {
       setMessageState("error");
-      setDialogMessage("Error uploading resource, Please try again later.");
+      setDialogMessage(
+        err.message ?? "Error uploading resource, Please try again later."
+      );
       setDialogOpen(true);
     },
     client: apolloClient,
