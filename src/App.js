@@ -15,6 +15,7 @@ import VolunteerPage from './containers/Volunteer';
 import { Provider as SearchProvider } from './context/SearchContext';
 import './global/styles/common.scss';
 
+export const VERIFIED_LEAD_PAGE_ROUTE = '/submit-a-verified-lead';
 
 const timeoutLink = new ApolloLinkTimeout(15000);
 const httpLink = createHttpLink({
@@ -59,7 +60,6 @@ const theme = createMuiTheme({
   }
 });
 
-
 function App() {
 
   return (
@@ -74,6 +74,7 @@ function App() {
                 <div className="container">
                   <Switch>
                     <Route exact path="/submit-a-lead" component={AddResources} />
+                    <Route exact path={VERIFIED_LEAD_PAGE_ROUTE} component={AddResources} />
                     <Route exact path="/home" component={Home} />
                     <Route exact path="/search" component={SearchPage} />
                     <Route exact path="/" component={Home} />
