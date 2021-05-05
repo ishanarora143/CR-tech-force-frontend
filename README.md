@@ -18,7 +18,7 @@ By helping each other is how we come out of this crisis.
 
 ## Contribute
 
-> NOTE: If you find yourself in some trouble going through this, reach out to us directly on our [What's app Group][whats-app-group].
+> NOTE: If you find yourself in some trouble going through this, reach out to us directly on our [What's app Group][whats-app-group] OR [Slack group][slack-group].
 
 ### Prerequisites
 
@@ -68,6 +68,7 @@ Further, checkout [package.json](https://github.com/CodingGardenCommunity/app-ba
 
 <!-- Links -->
 
+[slack-group]: https://join.slack.com/t/covidresourcesin/shared_invite/zt-poh78y1y-EVLUgWvw4uli7Cy6tfGQwQ
 [whats-app-group]: https://chat.whatsapp.com/Hu1vvpQw0A6GBG1aTJPHoV
 [how-to-fork]: https://docs.github.com/en/github/getting-started-with-github/fork-a-repo
 [backend-repository]: https://github.com/madhavanmalolan/covidresources.in-backend
