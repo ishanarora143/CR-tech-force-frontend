@@ -8,7 +8,7 @@ import {
   Typography,
   withTheme,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GreenTick from "../GreenTick/GreenTick";
 import ThumbsUp from "../../global/assets/icons/thumsup.svg";
 import ThumbsDown from "../../global/assets/icons/thumbsdown.svg";
@@ -116,15 +116,55 @@ const SearchResultCard = (props) => {
     thumbsUpcount = 0;
   }
 
+  let allVotes = JSON.parse(localStorage.getItem('voted'));
+  const [voted, setVoted] = useState(allVotes);
   const [upvote, setUpvote] = useState(thumbsUpcount);
 
   const [dialogMessage, setDialogMessage] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const [allowUpvote, setAllowUpvote] = useState(true);
-  const [allowDownvote, setAllowDownvote] = useState(true);
-
   const [expanded, setExpanded] = useState(false);
+
+  const handleTicketVoteClick = (vote) => {
+    let voteUpdateBy = 1;
+    
+    let votedFor = localStorage.getItem('voted');
+    if(votedFor){
+      votedFor = JSON.parse(votedFor);
+      if(votedFor[ticketId]){
+        if(votedFor[ticketId] === vote){
+          vote = vote === 'up' ? 'down' : 'up';
+        }else{
+          voteUpdateBy = 2;
+        }
+        delete votedFor[ticketId];
+      }else{
+        votedFor[ticketId] = vote;
+      }
+    }else{
+      votedFor = {}
+      votedFor[ticketId] = vote;
+    }
+
+    if(voteUpdateBy == 2){
+      localStorage.setItem(`voteUpdateBy-${ticketId}`, 2)
+      localStorage.setItem(`currentVote-${ticketId}`, vote)
+    }
+    
+    setVoted(votedFor);
+    localStorage.setItem('voted', JSON.stringify(votedFor))
+    vote === 'up' ? upvoteTicket() : downvoteTicket()
+  }
+
+  useEffect(() => {
+    let voteUpdateBy = localStorage.getItem(`voteUpdateBy-${ticketId}`);
+    let currentVote = localStorage.getItem(`currentVote-${ticketId}`);
+
+    if(voteUpdateBy == 2 && currentVote){
+      handleTicketVoteClick(currentVote == 'up' ? 'up' : 'down');
+      localStorage.removeItem(`voteUpdateBy-${ticketId}`);
+      localStorage.removeItem(`currentVote-${ticketId}`);
+    }
+  }, [upvote])
 
   const [upvoteTicket] = useMutation(UPVOTE_COUNT, {
     variables: {
@@ -138,14 +178,13 @@ const SearchResultCard = (props) => {
         result.data.upvoteTicket.status === "200"
       ) {
         setUpvote(upvote + 1);
-        setAllowDownvote(true);
-        setAllowUpvote(false);
       } else {
         setDialogMessage("Please try again later.");
         setDialogOpen(true);
       }
     },
     onError(err) {
+      console.log(err);
       setDialogMessage("Please try again later.");
       setDialogOpen(true);
     },
@@ -163,14 +202,13 @@ const SearchResultCard = (props) => {
         result.data.downvoteTicket.status === "200"
       ) {
         setUpvote(upvote - 1);
-        setAllowDownvote(false);
-        setAllowUpvote(true);
       } else {
         setDialogMessage("Please try again later.");
         setDialogOpen(true);
       }
     },
     onError(err) {
+      console.log(err);
       setDialogMessage("Please try again later.");
       setDialogOpen(true);
     },
@@ -378,8 +416,8 @@ const SearchResultCard = (props) => {
           </Typography>
           <div className={classes.thumbsUp}>
             <IconButton
-              onClick={() => allowUpvote && upvoteTicket()}
-              style={{ background: "#cccccc" }}
+              onClick={() => handleTicketVoteClick('up')}
+              style={{ background: voted && voted[ticketId] === 'up' ? '#46D3BA' : '#cccccc' }}
             >
               <Badge
                 classes={{ badge: classes.badge }}
@@ -398,8 +436,8 @@ const SearchResultCard = (props) => {
           </div>
           <div className={classes.thumbsDown}>
             <IconButton
-              onClick={() => allowDownvote && downvoteTicket()}
-              style={{ background: "#cccccc" }}
+              onClick={() => handleTicketVoteClick('down')}
+              style={{ background: voted && voted[ticketId] === 'down' ? '#46D3BA' : '#cccccc' }}
             >
               <Badge
                 classes={{ badge: classes.badge }}
