@@ -5,9 +5,9 @@ Behind this application, we're a team of volunteers working 24x7 to gather verif
 
 ## Welcome to Covid resources Frontend repository
 
-Project tracking: [Trello][project-tracking]
+Project tracking: [Trello](https://trello.com/b/QtahJCEi/covid-resources)
 
-Find backend repo here: [https://github.com/madhavanmalolan/covidresources.in-backend][backend-repository]
+Find backend repo here: [backend-repository](https://github.com/madhavanmalolan/covidresources.in-backend)
 
 ## How can you help us in this crisis?
 
@@ -18,7 +18,7 @@ By helping each other is how we come out of this crisis.
 
 ## Contribute
 
-> NOTE: If you find yourself in some trouble going through this, reach out to us directly on our [What's app Group][whats-app-group].
+> NOTE: If you find yourself in some trouble going through this, reach out to us directly on our [whats-app-group](https://chat.whatsapp.com/Hu1vvpQw0A6GBG1aTJPHoV).
 
 ### Prerequisites
 
@@ -65,15 +65,6 @@ Once you have the [Prerequisites](#prerequisites) covered:
 You can now visit <http://localhost:3000/> to view the application.
 
 Further, checkout [package.json](https://github.com/CodingGardenCommunity/app-backend/blob/develop/package.json) file to learn about (more) available scripts/commands.
-
-## Dependencies used
-
-<!-- - [ESLint](https://eslint.org/): Code linter. Analyses the code for potential errors.
-  - This project uses ESLint in conjunction with another dependency called "eslint-config-airbnb" for implementing the [airbnb set of rules](https://github.com/airbnb/javascript) helping to write clean javascript.   -->
-
-- [Jest](https://jestjs.io/): For testing.
-
-<!-- Links -->
 
 [whats-app-group]: whatsapp
 [how-to-fork]: https://docs.github.com/en/github/getting-started-with-github/fork-a-repo
