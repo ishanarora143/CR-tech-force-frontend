@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
   withTheme,
+  LinearProgress,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { Alert, Autocomplete } from "@material-ui/lab";
@@ -728,7 +729,7 @@ const AddResources = (props) => {
   const isVerifiedLeadPage =
     locationRouter.pathname === VERIFIED_LEAD_PAGE_ROUTE;
 
-  const [createTicket] = useMutation(CREATE_TICKET, {
+  const [createTicket, { loading }] = useMutation(CREATE_TICKET, {
     variables: {
       state,
       city,
@@ -755,14 +756,19 @@ const AddResources = (props) => {
         setMessageState("success");
         setDialogOpen(true);
       } else {
-        setDialogMessage("Error uploading resource, Please try again later.");
+        setDialogMessage(
+          result?.data?.createTicket?.message ??
+            "Error uploading resource, Please try again later."
+        );
         setMessageState("error");
         setDialogOpen(true);
       }
     },
     onError(err) {
       setMessageState("error");
-      setDialogMessage("Error uploading resource, Please try again later.");
+      setDialogMessage(
+        err.message ?? "Error uploading resource, Please try again later."
+      );
       setDialogOpen(true);
     },
     client: apolloClient,
@@ -796,7 +802,7 @@ const AddResources = (props) => {
       error = true;
     }
 
-    if (!password.trim()) {
+    if (isVerifiedLeadPage && !password.trim()) {
       setPasswordError(true);
       error = true;
     }
@@ -983,10 +989,12 @@ const AddResources = (props) => {
               }}
             />
           )}
+          {loading && <LinearProgress className="w-100" />}
           <Button
             className="mb-3"
             name="Add resource"
             onClick={() => checkDataAndSubmit()}
+            disabled={loading}
             style={{
               marginTop: theme.spacing(2),
               width: theme.spacing(20),
