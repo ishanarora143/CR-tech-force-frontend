@@ -231,6 +231,21 @@ const SearchResultCard = (props) => {
     return dayjs(lastVerified).fromNow();
   };
 
+  // fields to display in before more details
+  const essentialFields = [{ name:'State',value:'state'},{ name:'Other Info',value:'details'}]
+
+// fields to display afer click on more details
+  const moreFields = [{name:'Location',value:'location'},{name:'Cost Per Unit',value:'costPerUnit'},{name:"Availability",value:'availability'}]
+
+  //more details button will be only visibile if field value is present
+  let more_details = false
+  for(let i=0;i<moreFields.length;i++){
+    if(props[moreFields[i].value]){
+      more_details = true
+      break;
+    }
+  }
+
   return (
     <div className={`${classes.container} ${props.className || ""}`}>
       <Card variant="outlined" className={classes.root}>
@@ -316,60 +331,58 @@ const SearchResultCard = (props) => {
             </Button>
           </div>
 
-          <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
-            State
-          </Typography>
-          <Typography variant="body1">{state || "-"}</Typography>
+          {
+            essentialFields.map((el,key)=>
+            props[el.value] && props[el.value]!="-"?
+              <>
+                <Typography
+                style={{ marginTop: theme.spacing(2) }}
+                variant="body2"
+                    >
+                      {el.name} 
+                </Typography>
+                <Typography variant="body1">{props[el.value ]|| "-"}</Typography>
+              </>
+              :""
+            )
+          }
 
-          <Typography style={{ marginTop: theme.spacing(2) }} variant="body2">
-            Cost Per Unit
-          </Typography>
-          <Typography variant="body1">{costPerUnit || "-"}</Typography>
-
-          {expanded ? (
+          {expanded && more_details? (
             <>
-              <Typography
+            {
+            moreFields.map((el,key)=>
+            props[el.value] && props[el.value]!="-"?
+              <>
+                <Typography
                 style={{ marginTop: theme.spacing(2) }}
                 variant="body2"
-              >
-                Availability
-              </Typography>
-              <Typography variant="body1">{availability || "-"}</Typography>
-
-              <Typography
-                style={{ marginTop: theme.spacing(2) }}
-                variant="body2"
-              >
-                Location
-              </Typography>
-              <Typography variant="body1">{location || "-"}</Typography>
-
-              <Typography
-                style={{ marginTop: theme.spacing(2) }}
-                variant="body2"
-              >
-                Other Info
-              </Typography>
-              <Typography variant="body1">{details || "-"}</Typography>
-            </>
-          ) : null}
-
-          <div
-            className="d-flex"
-            style={{ justifyContent: "flex-end", marginBottom: "-16px" }}
-          >
-            <Typography
-              onClick={() => setExpanded(!expanded)}
-              style={{
-                color: "#3A75CD",
-                textDecoration: "underline",
-                cursor: "pointer",
-              }}
-              variant="body1"
+                    >
+                      {el.name} 
+                </Typography>
+                <Typography variant="body1">{props[el.value ]|| "-"}</Typography>
+              </>
+              :""
+            )
+            }
+            </>)
+          :""
+          }
+          {  more_details? <div
+              className="d-flex"
+              style={{ justifyContent: "flex-end", marginBottom: "-16px" }}
             >
-              {expanded ? "Less Details" : "More Details"}
-            </Typography>
-          </div>
+              <Typography
+                onClick={() => setExpanded(!expanded)}
+                style={{
+                  color: "#3A75CD",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                }}
+                variant="body1"
+              >
+                {expanded ? "Less Details" : "More Details"}
+              </Typography>
+            </div>:""}
         </div>
 
         <div className={classes.cardFooter}>
