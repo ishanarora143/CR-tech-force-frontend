@@ -372,7 +372,7 @@ const SearchResultCard = (props) => {
           {
             essentialFields.map((el,key)=>
             props[el.value] && props[el.value]!="-"?
-              <>
+              <div key={el.name}>
                 <Typography
                 style={{ marginTop: theme.spacing(2) }}
                 variant="body2"
@@ -380,7 +380,7 @@ const SearchResultCard = (props) => {
                       {el.name} 
                 </Typography>
                 <Typography variant="body1">{props[el.value ]|| "-"}</Typography>
-              </>
+              </div>
               :""
             )
           }
@@ -390,7 +390,7 @@ const SearchResultCard = (props) => {
             {
             moreFields.map((el,key)=>
             props[el.value] && props[el.value]!="-"?
-              <>
+              <div key={el.name}>
                 <Typography
                 style={{ marginTop: theme.spacing(2) }}
                 variant="body2"
@@ -398,7 +398,7 @@ const SearchResultCard = (props) => {
                       {el.name} 
                 </Typography>
                 <Typography variant="body1">{props[el.value ]|| "-"}</Typography>
-              </>
+              </div>
               :""
             )
             }
